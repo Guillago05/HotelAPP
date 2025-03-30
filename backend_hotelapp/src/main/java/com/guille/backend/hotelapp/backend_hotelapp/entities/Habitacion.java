@@ -1,11 +1,14 @@
 package com.guille.backend.hotelapp.backend_hotelapp.entities;
 
+import java.util.List;
+
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
 import jakarta.persistence.JoinColumn;
 import jakarta.persistence.ManyToOne;
+import jakarta.persistence.OneToMany;
 import jakarta.persistence.Table;
 
 @Entity
@@ -22,14 +25,21 @@ public class Habitacion {
     @ManyToOne()
     @JoinColumn(name = "hotel_id")
     private Hotel hotel;
+    @OneToMany(mappedBy = "habitacion")
+    private List<Reserva> reservas;
 
-    public Habitacion(Long id, int numero, int precio_noche, boolean ocupado, int personas, Hotel hotel) {
+    public Habitacion() {
+    }
+
+    public Habitacion(Long id, int numero, int precio_noche, boolean ocupado, int personas, Hotel hotel,
+            List<Reserva> reservas) {
         this.id = id;
         this.numero = numero;
         this.precio_noche = precio_noche;
         this.ocupado = ocupado;
         this.personas = personas;
         this.hotel = hotel;
+        this.reservas = reservas;
     }
 
     public Long getId() {
@@ -78,6 +88,14 @@ public class Habitacion {
 
     public void setHotel(Hotel hotel) {
         this.hotel = hotel;
+    }
+
+    public List<Reserva> getReservas() {
+        return reservas;
+    }
+
+    public void setReservas(List<Reserva> reservas) {
+        this.reservas = reservas;
     }
 
 }

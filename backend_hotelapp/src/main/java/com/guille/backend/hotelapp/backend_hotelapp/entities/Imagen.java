@@ -1,3 +1,4 @@
+
 package com.guille.backend.hotelapp.backend_hotelapp.entities;
 
 import jakarta.persistence.Entity;
@@ -19,6 +20,9 @@ public class Imagen {
     @ManyToOne()
     @JoinColumn(name = "hotel_id")
     private Hotel hotel;
+
+    public Imagen() {
+    }
 
     public Imagen(Long id, String ruta, Hotel hotel) {
         this.id = id;

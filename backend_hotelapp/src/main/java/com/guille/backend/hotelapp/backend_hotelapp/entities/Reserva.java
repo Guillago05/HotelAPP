@@ -1,3 +1,4 @@
+
 package com.guille.backend.hotelapp.backend_hotelapp.entities;
 
 import java.sql.Date;
@@ -29,18 +30,25 @@ public class Reserva {
     @ManyToOne
     @JoinColumn(name = "hotel_id")
     private Hotel hotel;
+    @ManyToOne
+    @JoinColumn(name = "habitacion_id")
+    private Habitacion habitacion;
     @Temporal(TemporalType.DATE)
     private Date fechaLlegada;
     @Temporal(TemporalType.DATE)
     private Date fechaSalida;
     private int personas;
 
-    public Reserva(Long id, Usuario usuario, String email_no_reg, Hotel hotel, Date fechaLlegada, Date fechaSalida,
-            int personas) {
+    public Reserva() {
+    }
+
+    public Reserva(Long id, Usuario usuario, String email_no_reg, Hotel hotel, Habitacion habitacion, Date fechaLlegada,
+            Date fechaSalida, int personas) {
         this.id = id;
         this.usuario = usuario;
         this.email_no_reg = email_no_reg;
         this.hotel = hotel;
+        this.habitacion = habitacion;
         this.fechaLlegada = fechaLlegada;
         this.fechaSalida = fechaSalida;
         this.personas = personas;
@@ -100,6 +108,14 @@ public class Reserva {
 
     public void setPersonas(int personas) {
         this.personas = personas;
+    }
+
+    public Habitacion getHabitacion() {
+        return habitacion;
+    }
+
+    public void setHabitacion(Habitacion habitacion) {
+        this.habitacion = habitacion;
     }
 
 }

@@ -1,6 +1,9 @@
+
 package com.guille.backend.hotelapp.backend_hotelapp.entities;
 
 import java.util.List;
+
+import com.fasterxml.jackson.annotation.JsonInclude;
 
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
@@ -12,6 +15,7 @@ import jakarta.persistence.Table;
 
 @Entity
 @Table(name = "hoteles")
+@JsonInclude(JsonInclude.Include.NON_NULL)
 public class Hotel {
 
     @Id
@@ -31,6 +35,9 @@ public class Hotel {
     private List<Habitacion> habitaciones;
     @OneToMany(mappedBy = "hotel")
     private List<Imagen> imagenes;
+
+    public Hotel() {
+    }
 
     public Hotel(Long id, String nombre, String descripcion, String ciudad, String direccion, int total_habitaciones,
             String email, String contrasenia, List<Reserva> reservas, List<Habitacion> habitaciones,

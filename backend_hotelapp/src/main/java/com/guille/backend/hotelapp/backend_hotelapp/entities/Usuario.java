@@ -1,3 +1,4 @@
+
 package com.guille.backend.hotelapp.backend_hotelapp.entities;
 
 import java.util.List;
@@ -28,6 +29,9 @@ public class Usuario {
 
     @OneToMany(mappedBy = "usuario")
     private List<Reserva> reservas;
+
+    public Usuario() {
+    }
 
     public Usuario(Long id, String nombre, String apellidos, String email, String contrasenia, String telefono,
             String dNI, Long puntos, List<Reserva> reservas) {
