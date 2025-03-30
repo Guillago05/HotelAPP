@@ -15,7 +15,7 @@ export const HotelContainer = ({ hotel }) => {
                     <p className="card-text">
                         <strong>Ciudad:</strong> {hotel.ciudad} <br />
                         <strong>Dirección:</strong> {hotel.direccion} <br />
-                        <strong>Habitaciones disponibles:</strong> {hotel.habitaciones_disponibles}
+                        <strong>Descripcion:</strong> {hotel.descripcion}
                     </p>
                     <p className="card-text">{hotel.descripcion}</p>
                     <button className="btn btn-primary" onClick={handleReservar}>Reservar</button>

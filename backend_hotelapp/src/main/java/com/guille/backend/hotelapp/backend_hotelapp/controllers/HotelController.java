@@ -19,9 +19,13 @@ public class HotelController {
     @Autowired
     private HotelService service;
 
-    @GetMapping("/filter")
-    public List<Hotel> hotelesDisponibles(@RequestParam String ciudad, @RequestParam Date fecha_llegada,
-            @RequestParam Date fecha_salida, @RequestParam int personas) {
-        return service.findHotelsFilter(ciudad, fecha_llegada, fecha_salida, personas);
+    @GetMapping("/searchresults")
+    public List<Hotel> hotelesDisponibles(@RequestParam String ciudad, @RequestParam String fecha_llegada,
+            @RequestParam String fecha_salida, @RequestParam int personas) {
+        // Convertir las fechas de String a LocalDate
+        Date llegada = Date.valueOf(fecha_llegada);
+        Date salida = Date.valueOf(fecha_salida);
+        return service.findHotelsFilter(ciudad, llegada, salida, personas);
     }
+
 }

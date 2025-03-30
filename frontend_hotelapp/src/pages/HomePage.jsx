@@ -27,7 +27,7 @@ export const HomePage = () => {
 
     const onSubmit = (event) => {
         event.preventDefault();
-        navigate(`/searchresults?ciudad=${ciudad}`)
+        navigate(`/searchresults?ciudad=${ciudad}&fecha_llegada=${fechaLlegada}&fecha_salida=${fechaSalida}&personas=${personas}`)
     }
 
     const counterIncrementP = (event) => {
