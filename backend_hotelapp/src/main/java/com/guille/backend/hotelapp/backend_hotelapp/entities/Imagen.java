@@ -1,6 +1,8 @@
 
 package com.guille.backend.hotelapp.backend_hotelapp.entities;
 
+import com.fasterxml.jackson.annotation.JsonInclude;
+
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
@@ -11,6 +13,7 @@ import jakarta.persistence.Table;
 
 @Entity
 @Table(name = "imagenes")
+@JsonInclude(JsonInclude.Include.NON_NULL)
 public class Imagen {
 
     @Id

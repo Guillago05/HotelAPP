@@ -1,0 +1,31 @@
+package com.guille.backend.hotelapp.backend_hotelapp.controllers;
+
+import java.sql.Date;
+
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.web.bind.annotation.CrossOrigin;
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.RestController;
+
+import com.guille.backend.hotelapp.backend_hotelapp.entities.Habitacion;
+import com.guille.backend.hotelapp.backend_hotelapp.services.HabitacionService;
+
+@RestController
+@CrossOrigin(origins = "http://localhost:5173/")
+public class HabitacionController {
+
+    @Autowired
+    private HabitacionService service;
+
+    @GetMapping("/habitacionesDisponibles")
+    public Habitacion habitacionesDisponibles(@RequestParam String nombreHotel,
+            @RequestParam String fecha_llegada,
+            @RequestParam String fecha_salida, @RequestParam int personas) {
+        // Convertir las fechas de String a LocalDate
+        Date llegada = Date.valueOf(fecha_llegada);
+        Date salida = Date.valueOf(fecha_salida);
+        return service.findHabitacionMasBarata(nombreHotel, llegada, salida, personas);
+    }
+
+}

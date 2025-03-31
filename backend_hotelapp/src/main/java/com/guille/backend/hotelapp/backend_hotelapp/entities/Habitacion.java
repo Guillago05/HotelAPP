@@ -2,6 +2,8 @@ package com.guille.backend.hotelapp.backend_hotelapp.entities;
 
 import java.util.List;
 
+import com.fasterxml.jackson.annotation.JsonInclude;
+
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
@@ -13,6 +15,7 @@ import jakarta.persistence.Table;
 
 @Entity
 @Table(name = "habitaciones")
+@JsonInclude(JsonInclude.Include.NON_NULL)
 public class Habitacion {
 
     @Id
@@ -20,7 +23,6 @@ public class Habitacion {
     private Long id;
     private int numero;
     private int precio_noche;
-    private boolean ocupado; // True para ocupado, false para libre
     private int personas;
     @ManyToOne()
     @JoinColumn(name = "hotel_id")
@@ -31,12 +33,11 @@ public class Habitacion {
     public Habitacion() {
     }
 
-    public Habitacion(Long id, int numero, int precio_noche, boolean ocupado, int personas, Hotel hotel,
+    public Habitacion(Long id, int numero, int precio_noche, int personas, Hotel hotel,
             List<Reserva> reservas) {
         this.id = id;
         this.numero = numero;
         this.precio_noche = precio_noche;
-        this.ocupado = ocupado;
         this.personas = personas;
         this.hotel = hotel;
         this.reservas = reservas;
@@ -64,14 +65,6 @@ public class Habitacion {
 
     public void setPrecio_noche(int precio_noche) {
         this.precio_noche = precio_noche;
-    }
-
-    public boolean isOcupado() {
-        return ocupado;
-    }
-
-    public void setOcupado(boolean ocupado) {
-        this.ocupado = ocupado;
     }
 
     public int getPersonas() {

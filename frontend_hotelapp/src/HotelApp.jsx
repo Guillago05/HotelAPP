@@ -11,7 +11,7 @@ export const HotelApp = () => {
             <Route path="/*" element={<Navigate to="/home" />} />
             <Route path="/login" element={<LoginPage />} />
             <Route path="/searchresults" element={<ListHotelsPage />} />
-            <Route path="/hotel/:id" element={<HotelPage />} />
+            <Route path="/hotel/:nombrehotel" element={<HotelPage />} />
             <Route path="/registro" element={<LoginPage />} />
         </Routes>
     );

@@ -3,6 +3,8 @@ package com.guille.backend.hotelapp.backend_hotelapp.entities;
 
 import java.sql.Date;
 
+import com.fasterxml.jackson.annotation.JsonInclude;
+
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
@@ -15,6 +17,7 @@ import jakarta.persistence.TemporalType;
 
 @Entity
 @Table(name = "reservas")
+@JsonInclude(JsonInclude.Include.NON_NULL)
 public class Reserva {
 
     @Id
