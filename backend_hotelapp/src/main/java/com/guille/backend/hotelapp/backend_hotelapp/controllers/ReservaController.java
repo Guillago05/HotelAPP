@@ -12,7 +12,7 @@ import com.guille.backend.hotelapp.backend_hotelapp.entities.Reserva;
 import com.guille.backend.hotelapp.backend_hotelapp.services.ReservaService;
 
 @RestController
-@CrossOrigin(origins = "http://localhost:5173/")
+@CrossOrigin(originPatterns = "*")
 public class ReservaController {
     @Autowired
     private ReservaService service;

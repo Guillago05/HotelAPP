@@ -16,13 +16,14 @@ public class HabitacionServiceImpl implements HabitacionService {
     private HabitacionRepository repository;
 
     @Override
-    public Habitacion findHabitacionMasBarata(String nombreHotel, Date fecha_llegada, Date fecha_salida,
+    public List<Habitacion> findHabitaciones(String nombreHotel, Date fecha_llegada, Date fecha_salida,
             int personas) {
         List<Habitacion> habitaciones = repository.findHabitacionesDisponiblesHotel(nombreHotel, fecha_llegada,
                 fecha_salida, personas);
-        Habitacion habitacion = habitaciones.get(0);
-        habitacion.setHotel(null);
-        habitacion.setReservas(null);
-        return habitacion;
+        for (Habitacion habitacion : habitaciones) {
+            habitacion.setHotel(null);
+            habitacion.setReservas(null);
+        }
+        return habitaciones;
     }
 }

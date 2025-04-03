@@ -8,7 +8,7 @@ import { BarraBusqueda } from "../components/BarraBusqueda";
 export const ListHotelsPage = () => {
 
     const [hotelesFiltrados, setHotelesFiltrados] = useState([]);
-    const [loading, setLoading] = useState(true);
+    const [isLoading, setIsLoading] = useState(true);
     const [searchParams] = useSearchParams();
     // Obtener todos los parámetros
     const ciudad = searchParams.get("ciudad") || "";
@@ -19,7 +19,7 @@ export const ListHotelsPage = () => {
     const findHotel = async () => {
         const hoteles = await getHotelesDisponibles(ciudad, fecha_llegada, fecha_salida, personas);
         setHotelesFiltrados(hoteles);
-        setLoading(false);
+        setIsLoading(false);
     }
 
     useEffect(() => {
@@ -30,12 +30,11 @@ export const ListHotelsPage = () => {
         <>
             <NavBar />
             <BarraBusqueda home={false} />
-            {loading && <div className="alert alert-info">Cargando</div>}
             <div className="container mt-5">
                 <h1 className="text-center mb-4">Hoteles disponibles en {ciudad}</h1>
 
-                {hotelesFiltrados.length === 0 ? (
-                    <p className="text-center">No se encontraron hoteles en esta ciudad.</p>
+                {isLoading ? (
+                    <p className="text-center">Cargando...</p>
                 ) : (
                     <div className="row">
                         {hotelesFiltrados.map((hotel) => (

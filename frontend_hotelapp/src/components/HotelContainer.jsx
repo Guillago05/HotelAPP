@@ -1,5 +1,5 @@
 import { useNavigate } from "react-router-dom";
-import { getPrecioEstancia } from "../services/HotelService";
+import { getPrecioMasBarato } from "../services/HotelService";
 import { useEffect, useState } from "react";
 
 export const HotelContainer = ({ hotel, fecha_llegada, fecha_salida, personas }) => {
@@ -8,12 +8,12 @@ export const HotelContainer = ({ hotel, fecha_llegada, fecha_salida, personas })
 
     const navigate = useNavigate();
 
-    const handleReservar = () => {
+    const verDisponibilidad = () => {
         navigate(`/hotel/${hotel.nombre}`, { state: { hotel, fecha_llegada, fecha_salida, personas } });
     };
 
     const precio_total = async () => {
-        const precioTotal = await getPrecioEstancia(hotel.nombre, fecha_llegada, fecha_salida, personas);
+        const precioTotal = await getPrecioMasBarato(hotel.nombre, fecha_llegada, fecha_salida, personas);
         setPrecio(precioTotal);
     };
 
@@ -48,9 +48,9 @@ export const HotelContainer = ({ hotel, fecha_llegada, fecha_salida, personas })
                         </div>
 
                         <div className="d-flex flex-column align-items-end">
-                            <span className="text-warning fs-4 mb-2">{precio}€</span> {/* Precio de ejemplo */}
-                            <button className="btn btn-primary" onClick={handleReservar}>
-                                Reservar
+                            <span className="text-warning fs-4 mb-2">Habitaciones desde {precio}€</span>
+                            <button className="btn btn-primary" onClick={verDisponibilidad}>
+                                Ver Disponibilidad
                             </button>
                         </div>
                     </div>

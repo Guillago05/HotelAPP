@@ -28,8 +28,6 @@ public class Reserva {
     @JoinColumn(name = "usuario_id")
     private Usuario usuario; // Para usuarios que esten registrados, sera null si la reserva es de alguien
                              // que no esta registrado
-    private String email_no_reg;// Para usuarios que no esten registrados, sera null si la reserva es de alguien
-                                // que esta registrado
     @ManyToOne
     @JoinColumn(name = "hotel_id")
     private Hotel hotel;
@@ -41,12 +39,19 @@ public class Reserva {
     @Temporal(TemporalType.DATE)
     private Date fechaSalida;
     private int personas;
+    // Atributos para usuarios no registrados
+    private String email_no_reg;
+    private String nombre_no_reg;
+    private String apellidos_no_reg;
+    private String dni_no_reg;
+    private String telefono_no_reg;
 
     public Reserva() {
     }
 
     public Reserva(Long id, Usuario usuario, String email_no_reg, Hotel hotel, Habitacion habitacion, Date fechaLlegada,
-            Date fechaSalida, int personas) {
+            Date fechaSalida, int personas, String nombre_no_reg, String apellidos_no_reg, String dni_no_reg,
+            String telefono_no_reg) {
         this.id = id;
         this.usuario = usuario;
         this.email_no_reg = email_no_reg;
@@ -55,6 +60,10 @@ public class Reserva {
         this.fechaLlegada = fechaLlegada;
         this.fechaSalida = fechaSalida;
         this.personas = personas;
+        this.nombre_no_reg = nombre_no_reg;
+        this.apellidos_no_reg = apellidos_no_reg;
+        this.dni_no_reg = dni_no_reg;
+        this.telefono_no_reg = telefono_no_reg;
     }
 
     public Long getId() {
@@ -97,14 +106,6 @@ public class Reserva {
         this.fechaSalida = fechaSalida;
     }
 
-    public String getEmail_no_reg() {
-        return email_no_reg;
-    }
-
-    public void setEmail_no_reg(String email_no_reg) {
-        this.email_no_reg = email_no_reg;
-    }
-
     public int getPersonas() {
         return personas;
     }
@@ -119,6 +120,46 @@ public class Reserva {
 
     public void setHabitacion(Habitacion habitacion) {
         this.habitacion = habitacion;
+    }
+
+    public String getEmail_no_reg() {
+        return email_no_reg;
+    }
+
+    public void setEmail_no_reg(String email_no_reg) {
+        this.email_no_reg = email_no_reg;
+    }
+
+    public String getNombre_no_reg() {
+        return nombre_no_reg;
+    }
+
+    public void setNombre_no_reg(String nombre_no_reg) {
+        this.nombre_no_reg = nombre_no_reg;
+    }
+
+    public String getApellidos_no_reg() {
+        return apellidos_no_reg;
+    }
+
+    public void setApellidos_no_reg(String apellidos_no_reg) {
+        this.apellidos_no_reg = apellidos_no_reg;
+    }
+
+    public String getDni_no_reg() {
+        return dni_no_reg;
+    }
+
+    public void setDni_no_reg(String dni_no_reg) {
+        this.dni_no_reg = dni_no_reg;
+    }
+
+    public String getTelefono_no_reg() {
+        return telefono_no_reg;
+    }
+
+    public void setTelefono_no_reg(String telefono_no_reg) {
+        this.telefono_no_reg = telefono_no_reg;
     }
 
 }

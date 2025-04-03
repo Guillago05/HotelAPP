@@ -13,7 +13,7 @@ import com.guille.backend.hotelapp.backend_hotelapp.entities.Hotel;
 import com.guille.backend.hotelapp.backend_hotelapp.services.HotelService;
 
 @RestController
-@CrossOrigin(origins = "http://localhost:5173/")
+@CrossOrigin(originPatterns = "*")
 public class HotelController {
 
     @Autowired
