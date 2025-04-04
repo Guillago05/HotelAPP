@@ -18,7 +18,14 @@ export const useAuth = () => {
 
     const handlerLogin = ({ username, password }) => {
         if (loginUser({ username, password })) {
-            const user = { username: 'admin', email: 'admin@correo.com' }
+            const user = {
+                id: 1,
+                nombre: 'admin',
+                apellidos: 'min',
+                email: 'admin@correo.com',
+                dni: '12345678',
+                telefono: '123'
+            }
             dispach({
                 type: "login",
                 payload: user,

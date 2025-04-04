@@ -3,6 +3,7 @@ package com.guille.backend.hotelapp.backend_hotelapp.entities;
 
 import java.sql.Date;
 
+import com.fasterxml.jackson.annotation.JsonFormat;
 import com.fasterxml.jackson.annotation.JsonInclude;
 
 import jakarta.persistence.Entity;
@@ -34,8 +35,10 @@ public class Reserva {
     @ManyToOne
     @JoinColumn(name = "habitacion_id")
     private Habitacion habitacion;
+    @JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "yyyy-MM-dd")
     @Temporal(TemporalType.DATE)
     private Date fechaLlegada;
+    @JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "yyyy-MM-dd")
     @Temporal(TemporalType.DATE)
     private Date fechaSalida;
     private int personas;
@@ -160,6 +163,14 @@ public class Reserva {
 
     public void setTelefono_no_reg(String telefono_no_reg) {
         this.telefono_no_reg = telefono_no_reg;
+    }
+
+    @Override
+    public String toString() {
+        return "Reserva [id=" + id + ", usuario=" + usuario + ", hotel=" + hotel + ", habitacion=" + habitacion
+                + ", fechaLlegada=" + fechaLlegada + ", fechaSalida=" + fechaSalida + ", personas=" + personas
+                + ", email_no_reg=" + email_no_reg + ", nombre_no_reg=" + nombre_no_reg + ", apellidos_no_reg="
+                + apellidos_no_reg + ", dni_no_reg=" + dni_no_reg + ", telefono_no_reg=" + telefono_no_reg + "]";
     }
 
 }

@@ -19,6 +19,12 @@ public class ReservaController {
 
     @PostMapping("reserva")
     public ResponseEntity<?> reservarHabitacion(@RequestBody Reserva reserva) {
+        System.out.println("\n");
+        System.out.println("\n");
+
+        System.out.println("\n");
+        System.out.println("\n");
+        System.out.println(reserva);
         return ResponseEntity.status(HttpStatus.CREATED).body(service.reservarHabitacion(reserva));
     }
 }

@@ -1,19 +1,20 @@
 import { useState } from "react";
-import { useLocation } from "react-router-dom";
+import { useLocation, useNavigate } from "react-router-dom";
 import Swal from "sweetalert2";
-import { reservarHabitacion } from "../services/ReservaService";
+import { reservarHabitacionNoReg, reservarHabitacionReg } from "../services/ReservaService";
 
-const initialUserData = {
-    nombre: "",
-    apellidos: "",
-    email: "",
-    dni: "",
-    telefono: ""
-}
 
 const loginData = JSON.parse(sessionStorage.getItem('login')) || {
     isAuth: false,
     user: undefined,
+}
+
+const initialUserData = {
+    nombre: loginData.isAuth ? loginData.user.nombre : "",
+    apellidos: loginData.isAuth ? loginData.user.apellidos : "",
+    email: loginData.isAuth ? loginData.user.email : "",
+    dni: loginData.isAuth ? loginData.user.dni : "",
+    telefono: loginData.isAuth ? loginData.user.telefono : ""
 }
 
 export const BookHabitacionPage = () => {
@@ -21,12 +22,14 @@ export const BookHabitacionPage = () => {
 
     const { nombre, apellidos, email, dni, telefono } = formData;
 
+    const navigate = useNavigate();
+
     const location = useLocation();
-    const hotel = location.state?.hotel;
+    const id_hotel = location.state?.hotel.id;
     const fecha_llegada = location.state?.fecha_llegada;
     const fecha_salida = location.state?.fecha_salida;
     const personas = location.state?.personas;
-    const habitacion = location.state?.habitacion;
+    const id_habitacion = location.state?.habitacion.id;
 
     const handleSubmit = (event) => {
         event.preventDefault();//Para que no se actualice la pagina
@@ -37,13 +40,54 @@ export const BookHabitacionPage = () => {
                 'error'
             );
         }
-        reservarHabitacion({
-            nombre, apellidos, email,
-            dni, telefono, hotel, habitacion,
-            fecha_llegada, fecha_salida, personas
-        })
 
-        setFormData(initialUserData);
+        if (loginData.isAuth) {
+            const reserva = {
+                hotel: {
+                    id: id_hotel,
+                },
+                habitacion: {
+                    id: id_habitacion,
+                },
+                usuario: {
+                    id: loginData.user.id,
+                },
+                fechaLlegada: fecha_llegada,
+                fechaSalida: fecha_salida,
+                personas: personas,
+            }
+
+            console.log(JSON.stringify(reserva, null, 2));
+            reservarHabitacionReg(reserva);
+        } else {
+            console.log("prueba")
+            const reserva = {
+                email_no_reg: email,
+                nombre_no_reg: nombre,
+                apellidos_no_reg: apellidos,
+                dni_no_reg: dni,
+                telefono_no_reg: telefono,
+                hotel: {
+                    id: id_hotel,
+                },
+                habitacion: {
+                    id: id_habitacion,
+                },
+                fechaLlegada: fecha_llegada,
+                fechaSalida: fecha_salida,
+                personas: personas,
+            }
+            reservarHabitacionNoReg(reserva);
+        }
+        setFormData({
+            nombre: "",
+            apellidos: "",
+            email: "",
+            dni: "",
+            telefono: ""
+        });
+        navigate("/home");
+        Swal.fire("Tu reserva se ha completado", "", "success");
     }
 
     const onInputChange = ({ target }) => {
@@ -55,32 +99,52 @@ export const BookHabitacionPage = () => {
     }
     return (
         <>
-            <div className="container mt-5">
-                <h2>Introduce tus datos personales</h2>
-                <form onSubmit={handleSubmit} className="mt-4">
-                    <div className="mb-3">
-                        <label className="form-label">Nombre</label>
-                        <input type="text" name="nombre" className="form-control" value={formData.nombre} onChange={onInputChange} required />
+            {loginData.isAuth && (
+                <div className="container mt-3 d-flex justify-content-center">
+                    <div className="card shadow-lg bg-dark text-white p-3 rounded-3xl w-100" style={{ maxWidth: '500px' }}>
+                        <div className="d-flex align-items-center gap-3">
+                            <div className="rounded-circle bg-primary text-white d-flex align-items-center justify-content-center"
+                                style={{ width: "40px", height: "40px", fontSize: "1.2rem", flexShrink: 0 }}>
+                                {String(loginData.user.nombre).charAt(0).toUpperCase() || "?"}
+                            </div>
+                            <div>
+                                <p className="text-sm m-0">Has iniciado sesión</p>
+                                <span className="font-normal">{loginData.user.email}</span>
+                            </div>
+                        </div>
                     </div>
-                    <div className="mb-3">
-                        <label className="form-label">Apellidos</label>
-                        <input type="text" name="apellidos" className="form-control" value={formData.apellidos} onChange={onInputChange} required />
-                    </div>
-                    <div className="mb-3">
-                        <label className="form-label">Email</label>
-                        <input type="email" name="email" className="form-control" value={formData.email} onChange={onInputChange} required />
-                    </div>
-                    <div className="mb-3">
-                        <label className="form-label">DNI</label>
-                        <input type="text" name="dni" className="form-control" value={formData.dni} onChange={onInputChange} required />
-                    </div>
-                    <div className="mb-3">
-                        <label className="form-label">Teléfono</label>
-                        <input type="tel" name="telefono" className="form-control" value={formData.telefono} onChange={onInputChange} required />
-                    </div>
-                    <button type="submit" className="btn btn-primary">Continuar</button>
-                </form>
+                </div>
+            )}
+
+            <div className="container mt-3 d-flex justify-content-center">
+                <div className="card shadow-lg bg-dark text-white p-4 rounded-3xl w-100" style={{ maxWidth: '500px' }}>
+                    <h2 className="text-center">Introduce tus datos personales</h2>
+                    <form onSubmit={handleSubmit} className="mt-4">
+                        <div className="mb-3">
+                            <label className="form-label text-white">Nombre</label>
+                            <input type="text" name="nombre" className="form-control bg-dark text-white border-light" value={formData.nombre} onChange={onInputChange} required />
+                        </div>
+                        <div className="mb-3">
+                            <label className="form-label text-white">Apellidos</label>
+                            <input type="text" name="apellidos" className="form-control bg-dark text-white border-light" value={formData.apellidos} onChange={onInputChange} required />
+                        </div>
+                        <div className="mb-3">
+                            <label className="form-label text-white">Email</label>
+                            <input type="email" name="email" className="form-control bg-dark text-white border-light" value={formData.email} onChange={onInputChange} required />
+                        </div>
+                        <div className="mb-3">
+                            <label className="form-label text-white">DNI</label>
+                            <input type="text" name="dni" className="form-control bg-dark text-white border-light" value={formData.dni} onChange={onInputChange} required />
+                        </div>
+                        <div className="mb-3">
+                            <label className="form-label text-white">Teléfono</label>
+                            <input type="tel" name="telefono" className="form-control bg-dark text-white border-light" value={formData.telefono} onChange={onInputChange} required />
+                        </div>
+                        <button type="submit" className="btn btn-primary w-100">Continuar</button>
+                    </form>
+                </div>
             </div>
+
         </>
     )
 }
