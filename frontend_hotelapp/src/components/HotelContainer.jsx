@@ -1,6 +1,7 @@
 import { useNavigate } from "react-router-dom";
 import { getPrecioMasBarato } from "../services/HotelService";
 import { useEffect, useState } from "react";
+import imagenHotel from '../public/images/Hotel Atocha.png';
 
 export const HotelContainer = ({ hotel, fecha_llegada, fecha_salida, personas }) => {
 
@@ -29,7 +30,7 @@ export const HotelContainer = ({ hotel, fecha_llegada, fecha_salida, personas })
                     {/* Imagen a la izquierda */}
                     <div className="col-md-4">
                         <img
-                            src={""}
+                            src={imagenHotel}
                             alt={hotel.nombre}
                             className="img-fluid rounded-start"
                             style={{ height: "100%", objectFit: "cover" }}

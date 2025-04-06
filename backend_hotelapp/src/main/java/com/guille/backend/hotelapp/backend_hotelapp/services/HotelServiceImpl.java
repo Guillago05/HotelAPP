@@ -13,7 +13,7 @@ import com.guille.backend.hotelapp.backend_hotelapp.repositories.HotelRepository
 public class HotelServiceImpl implements HotelService {
 
     @Autowired
-    HotelRepository repository;
+    private HotelRepository repository;
 
     @Override
     public List<Hotel> findHotelsFilter(String ciudad, Date fecha_llegada, Date fecha_salida, int personas) {

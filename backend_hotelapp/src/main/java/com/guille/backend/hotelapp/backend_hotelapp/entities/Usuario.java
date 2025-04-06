@@ -12,6 +12,7 @@ import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
 import jakarta.persistence.OneToMany;
 import jakarta.persistence.Table;
+import jakarta.validation.constraints.NotEmpty;
 
 @Entity
 @Table(name = "usuarios")
@@ -23,8 +24,10 @@ public class Usuario {
     private Long id;
     private String nombre;
     private String apellidos;
+    @NotEmpty
     @Column(unique = true)
     private String email;
+    @NotEmpty
     private String contrasenia;
     private String telefono;
     private String DNI;
