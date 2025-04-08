@@ -1,26 +1,41 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { useLocation, useNavigate } from "react-router-dom";
 import Swal from "sweetalert2";
 import { reservarHabitacionNoReg, reservarHabitacionReg } from "../services/ReservaService";
 
 
-const loginData = JSON.parse(sessionStorage.getItem('login')) || {
-    isAuth: false,
-    user: undefined,
-}
+
 
 const initialUserData = {
-    nombre: loginData.isAuth ? loginData.user.nombre : "",
-    apellidos: loginData.isAuth ? loginData.user.apellidos : "",
-    email: loginData.isAuth ? loginData.user.email : "",
-    dni: loginData.isAuth ? loginData.user.dni : "",
-    telefono: loginData.isAuth ? loginData.user.telefono : ""
+    nombre: "",
+    apellidos: "",
+    email: "",
+    dni: "",
+    telefono: ""
 }
 
 export const BookHabitacionPage = () => {
     const [formData, setFormData] = useState(initialUserData);
-
+    const [loginData, setLoginData] = useState({
+        isAuth: false,
+        user: undefined
+    });
     const { nombre, apellidos, email, dni, telefono } = formData;
+
+
+    useEffect(() => {
+        const storedLogin = JSON.parse(sessionStorage.getItem("login"));
+        if (storedLogin?.isAuth) {
+            setLoginData(storedLogin);
+            setFormData({
+                nombre: storedLogin.user.nombre || "",
+                apellidos: storedLogin.user.apellidos || "",
+                email: storedLogin.user.email || "",
+                dni: storedLogin.user.dni || "",
+                telefono: storedLogin.user.telefono || ""
+            });
+        }
+    }, []);
 
     const navigate = useNavigate();
 
@@ -60,7 +75,6 @@ export const BookHabitacionPage = () => {
             console.log(JSON.stringify(reserva, null, 2));
             reservarHabitacionReg(reserva);
         } else {
-            console.log("prueba")
             const reserva = {
                 email_no_reg: email,
                 nombre_no_reg: nombre,
