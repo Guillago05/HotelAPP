@@ -1,11 +1,13 @@
 import { useNavigate } from "react-router-dom";
 import { getPrecioMasBarato } from "../services/HotelService";
 import { useEffect, useState } from "react";
-import imagenHotel from '../public/images/Hotel Atocha.png';
+import { getImagen } from "../services/ImagenService";
+// import imagenHotel from '../public/images/Hotel Atocha.png';
 
 export const HotelContainer = ({ hotel, fecha_llegada, fecha_salida, personas }) => {
 
     const [precio, setPrecio] = useState(0);
+    const [rutaImagen, setRutaImagen] = useState("");
 
     const navigate = useNavigate();
 
@@ -23,6 +25,17 @@ export const HotelContainer = ({ hotel, fecha_llegada, fecha_salida, personas })
             precio_total();
         }, [hotel.ciudad, fecha_llegada, fecha_llegada, personas]
     );
+
+    const imagen = async () => {
+        const imagen = await getImagen(hotel.id);
+        setRutaImagen(imagen);
+    };
+
+    useEffect(() => {
+        imagen();
+    }, []);
+
+
     return (
         <div className="col-12 mb-4">
             <div className="card shadow-lg bg-dark text-white">
@@ -30,7 +43,7 @@ export const HotelContainer = ({ hotel, fecha_llegada, fecha_salida, personas })
                     {/* Imagen a la izquierda */}
                     <div className="col-md-4">
                         <img
-                            src={imagenHotel}
+                            src={rutaImagen}
                             alt={hotel.nombre}
                             className="img-fluid rounded-start"
                             style={{ height: "100%", objectFit: "cover" }}

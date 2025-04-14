@@ -6,20 +6,22 @@ import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
-import com.guille.backend.hotelapp.backend_hotelapp.entities.Hotel;
+import com.guille.backend.hotelapp.backend_hotelapp.entities.models.Hotel;
 import com.guille.backend.hotelapp.backend_hotelapp.services.HotelService;
 
 @RestController
 @CrossOrigin(originPatterns = "*")
+@RequestMapping("/hoteles")
 public class HotelController {
 
     @Autowired
     private HotelService service;
 
-    @GetMapping("/searchresults")
+    @GetMapping("/disponibles")
     public List<Hotel> hotelesDisponibles(@RequestParam String ciudad, @RequestParam String fecha_llegada,
             @RequestParam String fecha_salida, @RequestParam int personas) {
         // Convertir las fechas de String a LocalDate

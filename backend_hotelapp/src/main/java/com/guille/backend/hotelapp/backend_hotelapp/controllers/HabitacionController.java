@@ -6,20 +6,22 @@ import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
-import com.guille.backend.hotelapp.backend_hotelapp.entities.Habitacion;
+import com.guille.backend.hotelapp.backend_hotelapp.entities.models.Habitacion;
 import com.guille.backend.hotelapp.backend_hotelapp.services.HabitacionService;
 
 @RestController
 @CrossOrigin(origins = "*")
+@RequestMapping("/habitaciones")
 public class HabitacionController {
 
     @Autowired
     private HabitacionService service;
 
-    @GetMapping("/habitacionesDisponibles")
+    @GetMapping("/disponibles")
     public List<Habitacion> habitacionesDisponiblesPrecio(@RequestParam String nombreHotel,
             @RequestParam String fecha_llegada,
             @RequestParam String fecha_salida, @RequestParam int personas) {

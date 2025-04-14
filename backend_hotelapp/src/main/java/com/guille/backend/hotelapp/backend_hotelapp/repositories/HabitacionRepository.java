@@ -7,7 +7,7 @@ import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.CrudRepository;
 import org.springframework.data.repository.query.Param;
 
-import com.guille.backend.hotelapp.backend_hotelapp.entities.Habitacion;
+import com.guille.backend.hotelapp.backend_hotelapp.entities.models.Habitacion;
 
 public interface HabitacionRepository extends CrudRepository<Habitacion, Long> {
 

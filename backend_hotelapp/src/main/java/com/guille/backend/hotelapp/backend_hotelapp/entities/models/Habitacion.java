@@ -1,4 +1,4 @@
-package com.guille.backend.hotelapp.backend_hotelapp.entities;
+package com.guille.backend.hotelapp.backend_hotelapp.entities.models;
 
 import java.util.List;
 

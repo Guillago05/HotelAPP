@@ -2,7 +2,7 @@ package com.guille.backend.hotelapp.backend_hotelapp.services;
 
 import java.util.List;
 
-import com.guille.backend.hotelapp.backend_hotelapp.entities.Imagen;
+import com.guille.backend.hotelapp.backend_hotelapp.entities.models.Imagen;
 
 public interface ImagenService {
 

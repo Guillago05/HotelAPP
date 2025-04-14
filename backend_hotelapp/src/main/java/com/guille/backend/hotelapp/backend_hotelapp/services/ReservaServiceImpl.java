@@ -4,7 +4,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
-import com.guille.backend.hotelapp.backend_hotelapp.entities.Reserva;
+import com.guille.backend.hotelapp.backend_hotelapp.entities.models.Reserva;
 import com.guille.backend.hotelapp.backend_hotelapp.repositories.ReservaRepository;
 
 @Service

@@ -6,7 +6,7 @@ import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.CrudRepository;
 import org.springframework.data.repository.query.Param;
 
-import com.guille.backend.hotelapp.backend_hotelapp.entities.Imagen;
+import com.guille.backend.hotelapp.backend_hotelapp.entities.models.Imagen;
 
 public interface ImagenRepository extends CrudRepository<Imagen, Long> {
 
