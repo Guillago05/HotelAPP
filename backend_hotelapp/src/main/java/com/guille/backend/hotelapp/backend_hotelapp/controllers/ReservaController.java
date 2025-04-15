@@ -21,7 +21,6 @@ public class ReservaController {
 
     @PostMapping()
     public ResponseEntity<?> reservarHabitacion(@RequestBody Reserva reserva) {
-        System.out.println(reserva);
         return ResponseEntity.status(HttpStatus.CREATED).body(service.reservarHabitacion(reserva));
     }
 }

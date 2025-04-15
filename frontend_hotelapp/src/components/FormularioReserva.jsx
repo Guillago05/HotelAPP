@@ -53,8 +53,6 @@ export const FormularioReserva = ({ id_hotel, fecha_llegada, fecha_salida,
                 fechaSalida: fecha_salida,
                 personas: personas,
             }
-
-            console.log(JSON.stringify(reserva, null, 2));
             reservarHabitacionReg(reserva);
         } else {
             const reserva = {
@@ -83,7 +81,7 @@ export const FormularioReserva = ({ id_hotel, fecha_llegada, fecha_salida,
             telefono: ""
         });
         navigate("/home");
-        Swal.fire("Tu reserva se ha completado", "", "success");
+
     }
 
     return (

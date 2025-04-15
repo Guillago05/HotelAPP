@@ -5,30 +5,17 @@ import java.util.List;
 
 import com.fasterxml.jackson.annotation.JsonInclude;
 
-import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
-import jakarta.persistence.GeneratedValue;
-import jakarta.persistence.GenerationType;
-import jakarta.persistence.Id;
 import jakarta.persistence.OneToMany;
 import jakarta.persistence.Table;
-import jakarta.validation.constraints.NotEmpty;
 
 @Entity
 @Table(name = "usuarios")
 @JsonInclude(JsonInclude.Include.NON_NULL)
-public class Usuario {
+public class Usuario extends Login {
 
-    @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Long id;
     private String nombre;
     private String apellidos;
-    @NotEmpty
-    @Column(unique = true)
-    private String email;
-    @NotEmpty
-    private String contrasenia;
     private String telefono;
     private String DNI;
     private Long puntos;
@@ -37,27 +24,6 @@ public class Usuario {
     private List<Reserva> reservas;
 
     public Usuario() {
-    }
-
-    public Usuario(Long id, String nombre, String apellidos, String email, String contrasenia, String telefono,
-            String dNI, Long puntos, List<Reserva> reservas) {
-        this.id = id;
-        this.nombre = nombre;
-        this.apellidos = apellidos;
-        this.email = email;
-        this.contrasenia = contrasenia;
-        this.telefono = telefono;
-        DNI = dNI;
-        this.puntos = puntos;
-        this.reservas = reservas;
-    }
-
-    public Long getId() {
-        return id;
-    }
-
-    public void setId(Long id) {
-        this.id = id;
     }
 
     public String getNombre() {
@@ -74,22 +40,6 @@ public class Usuario {
 
     public void setApellidos(String apellidos) {
         this.apellidos = apellidos;
-    }
-
-    public String getEmail() {
-        return email;
-    }
-
-    public void setEmail(String email) {
-        this.email = email;
-    }
-
-    public String getContrasenia() {
-        return contrasenia;
-    }
-
-    public void setContrasenia(String contrasenia) {
-        this.contrasenia = contrasenia;
     }
 
     public String getTelefono() {

@@ -5,11 +5,7 @@ import java.util.List;
 
 import com.fasterxml.jackson.annotation.JsonInclude;
 
-import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
-import jakarta.persistence.GeneratedValue;
-import jakarta.persistence.GenerationType;
-import jakarta.persistence.Id;
 import jakarta.persistence.Lob;
 import jakarta.persistence.OneToMany;
 import jakarta.persistence.Table;
@@ -17,20 +13,15 @@ import jakarta.persistence.Table;
 @Entity
 @Table(name = "hoteles")
 @JsonInclude(JsonInclude.Include.NON_NULL)
-public class Hotel {
+public class Hotel extends Login {
 
-    @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Long id;
     private String nombre;
     @Lob
     private String descripcion;
     private String ciudad;
     private String direccion;
     private int total_habitaciones;
-    @Column(unique = true)
-    private String email;
-    private String contrasenia;
+
     @OneToMany(mappedBy = "hotel")
     private List<Reserva> reservas;
     @OneToMany(mappedBy = "hotel")
@@ -39,30 +30,6 @@ public class Hotel {
     private List<Imagen> imagenes;
 
     public Hotel() {
-    }
-
-    public Hotel(Long id, String nombre, String descripcion, String ciudad, String direccion, int total_habitaciones,
-            String email, String contrasenia, List<Reserva> reservas, List<Habitacion> habitaciones,
-            List<Imagen> imagenes) {
-        this.id = id;
-        this.nombre = nombre;
-        this.descripcion = descripcion;
-        this.ciudad = ciudad;
-        this.direccion = direccion;
-        this.total_habitaciones = total_habitaciones;
-        this.email = email;
-        this.contrasenia = contrasenia;
-        this.reservas = reservas;
-        this.habitaciones = habitaciones;
-        this.imagenes = imagenes;
-    }
-
-    public Long getId() {
-        return id;
-    }
-
-    public void setId(Long id) {
-        this.id = id;
     }
 
     public String getNombre() {
@@ -103,22 +70,6 @@ public class Hotel {
 
     public void setTotal_habitaciones(int total_habitaciones) {
         this.total_habitaciones = total_habitaciones;
-    }
-
-    public String getEmail() {
-        return email;
-    }
-
-    public void setEmail(String email) {
-        this.email = email;
-    }
-
-    public String getContrasenia() {
-        return contrasenia;
-    }
-
-    public void setContrasenia(String contrasenia) {
-        this.contrasenia = contrasenia;
     }
 
     public List<Reserva> getReservas() {

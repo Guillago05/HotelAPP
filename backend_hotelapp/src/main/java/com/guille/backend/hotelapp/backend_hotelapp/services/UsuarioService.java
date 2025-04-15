@@ -1,16 +1,9 @@
 package com.guille.backend.hotelapp.backend_hotelapp.services;
 
-import java.util.Optional;
-
-import com.guille.backend.hotelapp.backend_hotelapp.entities.models.Usuario;
+import com.guille.backend.hotelapp.backend_hotelapp.entities.models.Login;
+import com.guille.backend.hotelapp.backend_hotelapp.entities.models.requests.UsuarioRequest;
 
 public interface UsuarioService {
 
-    Optional<Usuario> findById(Long id);
-
-    Usuario registrar(Usuario Usuario);
-
-    Optional<Usuario> modificarDatos(Usuario usuario, Long id);
-
-    void eliminarUsuario(Long id);
+    Login registroUsuario(UsuarioRequest usuario);
 }
