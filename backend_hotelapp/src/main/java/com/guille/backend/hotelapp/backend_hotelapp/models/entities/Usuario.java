@@ -18,7 +18,7 @@ public class Usuario extends Login {
     private String apellidos;
     private String telefono;
     private String DNI;
-    private Long puntos;
+    private int puntos;
 
     @OneToMany(mappedBy = "usuario")
     private List<Reserva> reservas;
@@ -58,11 +58,11 @@ public class Usuario extends Login {
         DNI = dNI;
     }
 
-    public Long getPuntos() {
+    public int getPuntos() {
         return puntos;
     }
 
-    public void setPuntos(Long puntos) {
+    public void setPuntos(int puntos) {
         this.puntos = puntos;
     }
 

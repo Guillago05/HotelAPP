@@ -10,13 +10,13 @@ public class UsuarioDto {
     private String apellidos;
     private String telefono;
     private String dni;
-    private Long puntos;
+    private int puntos;
     private Rol rol;
 
     public UsuarioDto() {
     }
 
-    public UsuarioDto(Long id, String email, String nombre, String apellidos, String telefono, String dni, Long puntos,
+    public UsuarioDto(Long id, String email, String nombre, String apellidos, String telefono, String dni, int puntos,
             Rol rol) {
         this.id = id;
         this.email = email;
@@ -76,11 +76,11 @@ public class UsuarioDto {
         this.dni = dni;
     }
 
-    public Long getPuntos() {
+    public int getPuntos() {
         return puntos;
     }
 
-    public void setPuntos(Long puntos) {
+    public void setPuntos(int puntos) {
         this.puntos = puntos;
     }
 

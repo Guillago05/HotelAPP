@@ -36,6 +36,7 @@ public class UsuarioServiceImpl implements UsuarioService {
             usuario.setEmail(usuarioRequest.getEmail());
             usuario.setContrasenia(passwordBc);
             usuario.setRol(o.orElseThrow());
+            usuario.setPuntos(0);
         }
         return usuarioRepository.save(usuario);
     }
