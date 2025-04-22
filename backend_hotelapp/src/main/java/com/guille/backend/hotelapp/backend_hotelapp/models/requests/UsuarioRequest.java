@@ -1,4 +1,4 @@
-package com.guille.backend.hotelapp.backend_hotelapp.entities.models.requests;
+package com.guille.backend.hotelapp.backend_hotelapp.models.requests;
 
 import jakarta.validation.constraints.Email;
 import jakarta.validation.constraints.NotEmpty;

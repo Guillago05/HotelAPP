@@ -6,7 +6,7 @@ import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import com.guille.backend.hotelapp.backend_hotelapp.entities.models.Hotel;
+import com.guille.backend.hotelapp.backend_hotelapp.models.entities.Hotel;
 import com.guille.backend.hotelapp.backend_hotelapp.repositories.HotelRepository;
 
 @Service

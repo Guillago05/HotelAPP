@@ -6,10 +6,12 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
-import com.guille.backend.hotelapp.backend_hotelapp.entities.models.Login;
-import com.guille.backend.hotelapp.backend_hotelapp.entities.models.Rol;
-import com.guille.backend.hotelapp.backend_hotelapp.entities.models.Usuario;
-import com.guille.backend.hotelapp.backend_hotelapp.entities.models.requests.UsuarioRequest;
+import com.guille.backend.hotelapp.backend_hotelapp.models.dto.UsuarioDto;
+import com.guille.backend.hotelapp.backend_hotelapp.models.dto.mapper.DtoMapperUsuario;
+import com.guille.backend.hotelapp.backend_hotelapp.models.entities.Login;
+import com.guille.backend.hotelapp.backend_hotelapp.models.entities.Rol;
+import com.guille.backend.hotelapp.backend_hotelapp.models.entities.Usuario;
+import com.guille.backend.hotelapp.backend_hotelapp.models.requests.UsuarioRequest;
 import com.guille.backend.hotelapp.backend_hotelapp.repositories.RolRepository;
 import com.guille.backend.hotelapp.backend_hotelapp.repositories.UsuarioRepository;
 
@@ -36,6 +38,22 @@ public class UsuarioServiceImpl implements UsuarioService {
             usuario.setRol(o.orElseThrow());
         }
         return usuarioRepository.save(usuario);
+    }
+
+    @Override
+    public Optional<UsuarioDto> obtenerUsuarioPorId(Long id) {
+        return usuarioRepository.findById(id).map(u -> DtoMapperUsuario
+                .builder()
+                .setUsuario(u)
+                .build());
+    }
+
+    @Override
+    public Optional<UsuarioDto> obtenerUsuarioPorCorreo(String email) {
+        return usuarioRepository.findByEmail(email).map(u -> DtoMapperUsuario
+                .builder()
+                .setUsuario(u)
+                .build());
     }
 
 }

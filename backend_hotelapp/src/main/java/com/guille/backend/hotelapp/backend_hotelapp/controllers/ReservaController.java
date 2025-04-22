@@ -9,7 +9,7 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
-import com.guille.backend.hotelapp.backend_hotelapp.entities.models.Reserva;
+import com.guille.backend.hotelapp.backend_hotelapp.models.entities.Reserva;
 import com.guille.backend.hotelapp.backend_hotelapp.services.ReservaService;
 
 @RestController

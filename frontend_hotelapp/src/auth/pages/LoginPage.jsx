@@ -4,15 +4,14 @@ import Swal from "sweetalert2";
 import { useAuth } from "../hooks/useAuth";
 
 const initialLoginForm = {
-    username: '',
-    password: '',
+    email: '',
+    contrasenia: '',
 }
-
 export const LoginPage = () => {
 
     const { handlerLogin } = useAuth();
     const [loginForm, setLoginForm] = useState(initialLoginForm);
-    const { username, password } = loginForm;
+    const { email, contrasenia } = loginForm;
 
     const onInputChange = ({ target }) => {
 
@@ -25,7 +24,7 @@ export const LoginPage = () => {
 
     const onSubmit = (event) => {
         event.preventDefault();//Para que no se actualice la pagina
-        if (!username || !password) {
+        if (!email || !contrasenia) {
             Swal.fire(
                 'Error de validacion',
                 'Username y password requeridos',
@@ -33,7 +32,7 @@ export const LoginPage = () => {
             );
         }
 
-        handlerLogin({ username, password });
+        handlerLogin({ email, contrasenia });
 
         setLoginForm(initialLoginForm);
     }
@@ -46,12 +45,12 @@ export const LoginPage = () => {
                     <h2 className="text-center mb-4">Login</h2>
                     <form onSubmit={onSubmit}>
                         <div className="mb-3">
-                            <input className="form-control" placeholder="Username"
-                                name="username" value={username} onChange={onInputChange} />
+                            <input className="form-control" placeholder="Email"
+                                name="email" value={email} onChange={onInputChange} />
                         </div>
                         <div className="mb-3">
-                            <input className="form-control" placeholder="Password" name="password"
-                                type="password" value={password} onChange={onInputChange} />
+                            <input className="form-control" placeholder="Contraseña" name="contrasenia"
+                                type="password" value={contrasenia} onChange={onInputChange} />
                         </div>
                         <div className="text-center">
                             <button className="btn btn-primary w-100" type="submit">Login</button>

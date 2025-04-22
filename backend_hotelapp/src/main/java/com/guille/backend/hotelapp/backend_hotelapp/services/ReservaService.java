@@ -1,6 +1,6 @@
 package com.guille.backend.hotelapp.backend_hotelapp.services;
 
-import com.guille.backend.hotelapp.backend_hotelapp.entities.models.Reserva;
+import com.guille.backend.hotelapp.backend_hotelapp.models.entities.Reserva;
 
 public interface ReservaService {
 

@@ -1,5 +1,5 @@
 
-package com.guille.backend.hotelapp.backend_hotelapp.entities.models;
+package com.guille.backend.hotelapp.backend_hotelapp.models.entities;
 
 import com.fasterxml.jackson.annotation.JsonInclude;
 

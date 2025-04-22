@@ -4,7 +4,7 @@ import java.util.Optional;
 
 import org.springframework.data.repository.CrudRepository;
 
-import com.guille.backend.hotelapp.backend_hotelapp.entities.models.Login;
+import com.guille.backend.hotelapp.backend_hotelapp.models.entities.Login;
 
 public interface LoginRepository extends CrudRepository<Login, Long> {
 

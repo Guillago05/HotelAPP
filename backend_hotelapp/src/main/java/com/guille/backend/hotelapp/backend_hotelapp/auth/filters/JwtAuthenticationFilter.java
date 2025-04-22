@@ -17,7 +17,8 @@ import org.springframework.security.web.authentication.UsernamePasswordAuthentic
 import com.fasterxml.jackson.core.exc.StreamReadException;
 import com.fasterxml.jackson.databind.DatabindException;
 import com.fasterxml.jackson.databind.ObjectMapper;
-import com.guille.backend.hotelapp.backend_hotelapp.entities.models.Login;
+import com.guille.backend.hotelapp.backend_hotelapp.models.entities.Login;
+
 import static com.guille.backend.hotelapp.backend_hotelapp.auth.TokenJwtConfig.*;
 
 import io.jsonwebtoken.Jwts;

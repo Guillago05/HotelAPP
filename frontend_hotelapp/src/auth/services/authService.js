@@ -1,5 +1,12 @@
-export const loginUser = (userLogin) => {
+import axios from "axios";
 
-    return (userLogin.username === 'admin'
-        && userLogin.password === '12345');
+export const loginUser = async ({ email, contrasenia }) => {
+    try {
+        return await axios.post('http://localhost:8080/login', {
+            email,
+            contrasenia
+        });
+    } catch (error) {
+        throw error;
+    }
 }

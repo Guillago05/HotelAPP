@@ -1,47 +1,54 @@
 import { useReducer } from "react";
 import { useNavigate } from "react-router-dom";
-import Swal from "sweetalert2";
 import { loginUser } from "../services/authService";
 import { authReducer } from "../reducers/authReducer";
+import Swal from "sweetalert2";
 
 
 
 const initialLogin = JSON.parse(sessionStorage.getItem('login')) || {
     isAuth: false,
-    user: undefined,
+    isUser: false,
+    email: undefined,
 }
 
 export const useAuth = () => {
 
     const [login, dispach] = useReducer(authReducer, initialLogin);
     const navigate = useNavigate();
-
-    const handlerLogin = ({ username, password }) => {
-        if (loginUser({ username, password })) {
-            const user = {
-                id: 1,
-                nombre: 'admin',
-                apellidos: 'min',
-                email: 'admin@correo.com',
-                dni: '12345678',
-                telefono: '123'
-            }
+    const handlerLogin = async ({ email, contrasenia }) => {
+        try {
+            const response = await loginUser({ email, contrasenia });
+            const token = response.data.token;
+            const claims = JSON.parse(window.atob(token.split(".")[1]));
             dispach({
                 type: "login",
-                payload: user,
+                payload: { email, isUser: claims.isUser }
             })
             sessionStorage.setItem('login', JSON.stringify({
                 isAuth: true,
-                user: user
+                isUser: claims.isAdmin,
+                email: email
             }));
-            navigate("/home")
-        } else {
-            Swal.fire(
-                'Error de validacion',
-                'Username o password invalidos',
-                'error'
-            );
+            navigate('/home')
+        } catch (error) {
+            if (error.response?.status == 401) {
+                Swal.fire(
+                    'Error de validacion',
+                    'Correo o contrasenia invalidos',
+                    'error'
+                );
+            } else if (error.response?.status == 403) {
+                Swal.fire(
+                    'Error de validacion',
+                    'No tiene acceso al recurso',
+                    'error'
+                );
+            } else {
+                throw error;
+            }
         }
+
     }
 
     const handlerLogout = () => {

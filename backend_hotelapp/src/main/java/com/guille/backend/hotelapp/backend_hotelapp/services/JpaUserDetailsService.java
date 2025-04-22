@@ -12,7 +12,7 @@ import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.stereotype.Service;
 
-import com.guille.backend.hotelapp.backend_hotelapp.entities.models.Login;
+import com.guille.backend.hotelapp.backend_hotelapp.models.entities.Login;
 import com.guille.backend.hotelapp.backend_hotelapp.repositories.LoginRepository;
 
 @Service

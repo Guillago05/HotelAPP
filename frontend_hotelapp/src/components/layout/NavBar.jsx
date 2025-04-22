@@ -3,7 +3,7 @@ import { useAuth } from "../../auth/hooks/useAuth";
 
 export const NavBar = () => {
     const { handlerLogout } = useAuth();
-    const loginData = JSON.parse(sessionStorage.getItem("login")) || { isAuth: false, user: "" };
+    const loginData = JSON.parse(sessionStorage.getItem("login")) || { isAuth: false, isUser: false, email: "" };
 
     return (
         <nav className="navbar navbar-expand-lg navbar-dark bg-dark">
@@ -19,7 +19,7 @@ export const NavBar = () => {
                         <>
                             <div className="rounded-circle bg-primary text-white d-flex align-items-center justify-content-center"
                                 style={{ width: "40px", height: "40px", fontSize: "1.2rem" }}>
-                                {String(loginData.user.nombre).charAt(0).toUpperCase() || "?"}
+                                {String(loginData.email).charAt(0).toUpperCase() || "?"}
                             </div>
                             <button className="btn btn-outline-light" onClick={() => {
                                 sessionStorage.removeItem("login");

@@ -1,4 +1,4 @@
-package com.guille.backend.hotelapp.backend_hotelapp.entities.models;
+package com.guille.backend.hotelapp.backend_hotelapp.models.entities;
 
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;

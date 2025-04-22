@@ -2,8 +2,7 @@ import { useEffect, useState } from "react";
 import { useLocation, useNavigate } from "react-router-dom";
 import Swal from "sweetalert2";
 import { reservarHabitacionNoReg, reservarHabitacionReg } from "../services/ReservaService";
-
-
+import { getUsuarioPorCorreo } from "../services/UserService";
 
 
 const initialUserData = {
@@ -22,18 +21,30 @@ export const BookHabitacionPage = () => {
     });
     const { nombre, apellidos, email, dni, telefono } = formData;
 
+    const findUsuario = async (email) => {
+        try {
+            const usuario = await getUsuarioPorCorreo(email);
+            setLoginData({
+                isAuth: true,
+                user: usuario
+            });
+            setFormData({
+                nombre: usuario.nombre || "",
+                apellidos: usuario.apellidos || "",
+                email: usuario.email || "",
+                dni: usuario.dni || "",
+                telefono: usuario.telefono || ""
+            });
+        } catch (error) {
+            console.error("Error al obtener el usuario:", error);
+        }
+    };
+
 
     useEffect(() => {
         const storedLogin = JSON.parse(sessionStorage.getItem("login"));
-        if (storedLogin?.isAuth) {
-            setLoginData(storedLogin);
-            setFormData({
-                nombre: storedLogin.user.nombre || "",
-                apellidos: storedLogin.user.apellidos || "",
-                email: storedLogin.user.email || "",
-                dni: storedLogin.user.dni || "",
-                telefono: storedLogin.user.telefono || ""
-            });
+        if (storedLogin?.isAuth && storedLogin?.email) {
+            findUsuario(storedLogin.email);
         }
     }, []);
 
@@ -71,8 +82,6 @@ export const BookHabitacionPage = () => {
                 fechaSalida: fecha_salida,
                 personas: personas,
             }
-
-            console.log(JSON.stringify(reserva, null, 2));
             reservarHabitacionReg(reserva);
         } else {
             const reserva = {
