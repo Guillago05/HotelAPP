@@ -5,6 +5,7 @@ import java.util.List;
 
 import com.fasterxml.jackson.annotation.JsonInclude;
 
+import jakarta.persistence.CascadeType;
 import jakarta.persistence.Entity;
 import jakarta.persistence.OneToMany;
 import jakarta.persistence.Table;
@@ -20,7 +21,7 @@ public class Usuario extends Login {
     private String DNI;
     private int puntos;
 
-    @OneToMany(mappedBy = "usuario")
+    @OneToMany(mappedBy = "usuario", cascade = CascadeType.REMOVE, orphanRemoval = true)
     private List<Reserva> reservas;
 
     public Usuario() {
@@ -72,6 +73,12 @@ public class Usuario extends Login {
 
     public void setReservas(List<Reserva> reservas) {
         this.reservas = reservas;
+    }
+
+    @Override
+    public String toString() {
+        return "Usuario [nombre=" + nombre + ", apellidos=" + apellidos + ", telefono=" + telefono + ", DNI=" + DNI
+                + ", puntos=" + puntos + "]";
     }
 
 }

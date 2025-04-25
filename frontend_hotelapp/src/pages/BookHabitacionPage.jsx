@@ -2,7 +2,8 @@ import { useEffect, useState } from "react";
 import { useLocation, useNavigate } from "react-router-dom";
 import Swal from "sweetalert2";
 import { reservarHabitacionNoReg, reservarHabitacionReg } from "../services/ReservaService";
-import { getUsuarioPorCorreo } from "../services/UserService";
+import { getUsuarioPorCorreo } from "../services/UsuarioService";
+import { NavBar } from "../components/layout/NavBar";
 
 
 const initialUserData = {
@@ -122,6 +123,7 @@ export const BookHabitacionPage = () => {
     }
     return (
         <>
+            <NavBar />
             {loginData.isAuth && (
                 <div className="container mt-3 d-flex justify-content-center">
                     <div className="card shadow-lg bg-dark text-white p-3 rounded-3xl w-100" style={{ maxWidth: '500px' }}>

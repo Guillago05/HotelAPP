@@ -1,6 +1,6 @@
 import { useReducer } from "react";
 import { useNavigate } from "react-router-dom";
-import { loginUser } from "../services/authService";
+import { loginUser, registerUser } from "../services/authService";
 import { authReducer } from "../reducers/authReducer";
 import Swal from "sweetalert2";
 
@@ -51,6 +51,22 @@ export const useAuth = () => {
 
     }
 
+    const handlerRegister = async ({ email, contrasenia }) => {
+        try {
+            const response = await registerUser({ email, contrasenia });
+            await handlerLogin({ email, contrasenia });
+            navigate("/home")
+        } catch (error) {
+            if (error.response?.status == 500) {
+                Swal.fire(
+                    'Error',
+                    'El correo ya esta registrado en el sistema',
+                    'error'
+                );
+            }
+        }
+    }
+
     const handlerLogout = () => {
         dispach({
             type: "logout",
@@ -64,6 +80,7 @@ export const useAuth = () => {
         login,
         initialLogin,
         handlerLogin,
-        handlerLogout
+        handlerLogout,
+        handlerRegister
     }
 }

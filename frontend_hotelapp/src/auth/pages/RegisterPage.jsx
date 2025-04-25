@@ -1,16 +1,15 @@
 import { useState } from "react";
 import { NavBar } from "../../components/layout/NavBar"
-import Swal from "sweetalert2";
 import { useAuth } from "../hooks/useAuth";
-import { NavLink } from "react-router-dom";
 
 const initialLoginForm = {
     email: '',
     contrasenia: '',
 }
-export const LoginPage = () => {
 
-    const { handlerLogin } = useAuth();
+export const RegisterPage = () => {
+
+    const { handlerRegister } = useAuth();
     const [loginForm, setLoginForm] = useState(initialLoginForm);
     const { email, contrasenia } = loginForm;
 
@@ -33,8 +32,7 @@ export const LoginPage = () => {
             );
         }
 
-        handlerLogin({ email, contrasenia });
-
+        handlerRegister({ email, contrasenia });
         setLoginForm(initialLoginForm);
     }
 
@@ -43,7 +41,7 @@ export const LoginPage = () => {
             <NavBar />
             <div className="container mt-5 d-flex justify-content-center">
                 <div className="card p-5 shadow-lg" style={{ width: "450px" }}>
-                    <h2 className="text-center mb-4">Login</h2>
+                    <h2 className="text-center mb-4">Registrate</h2>
                     <form onSubmit={onSubmit}>
                         <div className="mb-3">
                             <input className="form-control" placeholder="Email"
@@ -57,14 +55,8 @@ export const LoginPage = () => {
                             <button className="btn btn-primary w-100" type="submit">Login</button>
                         </div>
                     </form>
-                    <div className="text-center mt-3">
-                        <NavLink to="/register">
-                            ¿No tienes cuenta? Pulsa aquí
-                        </NavLink>
-                    </div>
                 </div>
             </div>
-
         </>
     )
 }

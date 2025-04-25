@@ -10,3 +10,15 @@ export const loginUser = async ({ email, contrasenia }) => {
         throw error;
     }
 }
+
+
+export const registerUser = async ({ email, contrasenia }) => {
+    try {
+        return await axios.post('http://localhost:8080/usuarios', {
+            email,
+            contrasenia
+        });
+    } catch (error) {
+        throw error;
+    }
+}

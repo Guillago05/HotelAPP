@@ -39,3 +39,17 @@
         opacity: 1
     }
 }
+
+.dropdown-menu {
+    background-color: #212529;
+    /* Bootstrap dark */
+    border: none;
+}
+
+.dropdown-item {
+    color: white;
+}
+
+.dropdown-item:hover {
+    background-color: #343a40;
+}

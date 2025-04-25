@@ -4,6 +4,8 @@ import { ListHotelsPage } from "./pages/ListHotelsPage";
 import { HotelPage } from "./pages/HotelPage";
 import { LoginPage } from "./auth/pages/LoginPage";
 import { BookHabitacionPage } from "./pages/BookHabitacionPage";
+import { RegisterPage } from "./auth/pages/RegisterPage";
+import { EditarPerfilPage } from "./pages/EditarPerfilPage";
 
 export const HotelApp = () => {
     return (
@@ -14,7 +16,8 @@ export const HotelApp = () => {
             <Route path="/searchresults" element={<ListHotelsPage />} />
             <Route path="/hotel/:nombrehotel" element={<HotelPage />} />
             <Route path="/hotel/:nombrehotel/book" element={<BookHabitacionPage />} />
-            <Route path="/registro" element={<LoginPage />} />
+            <Route path="/register" element={<RegisterPage />} />
+            <Route path="/perfil/edit" element={<EditarPerfilPage />} />
         </Routes>
     );
 };

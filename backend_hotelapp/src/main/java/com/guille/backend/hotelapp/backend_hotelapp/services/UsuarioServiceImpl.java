@@ -15,6 +15,8 @@ import com.guille.backend.hotelapp.backend_hotelapp.models.requests.UsuarioReque
 import com.guille.backend.hotelapp.backend_hotelapp.repositories.RolRepository;
 import com.guille.backend.hotelapp.backend_hotelapp.repositories.UsuarioRepository;
 
+import jakarta.transaction.Transactional;
+
 @Service
 public class UsuarioServiceImpl implements UsuarioService {
 
@@ -28,6 +30,7 @@ public class UsuarioServiceImpl implements UsuarioService {
     private PasswordEncoder passwordEncoder;
 
     @Override
+    @Transactional
     public Login registroUsuario(UsuarioRequest usuarioRequest) {
         String passwordBc = passwordEncoder.encode(usuarioRequest.getContrasenia());
         Optional<Rol> o = rolRepository.findByName("ROLE_USER");
@@ -42,6 +45,7 @@ public class UsuarioServiceImpl implements UsuarioService {
     }
 
     @Override
+    @Transactional
     public Optional<UsuarioDto> obtenerUsuarioPorId(Long id) {
         return usuarioRepository.findById(id).map(u -> DtoMapperUsuario
                 .builder()
@@ -50,6 +54,7 @@ public class UsuarioServiceImpl implements UsuarioService {
     }
 
     @Override
+    @Transactional
     public Optional<UsuarioDto> obtenerUsuarioPorCorreo(String email) {
         return usuarioRepository.findByEmail(email).map(u -> DtoMapperUsuario
                 .builder()
@@ -57,4 +62,61 @@ public class UsuarioServiceImpl implements UsuarioService {
                 .build());
     }
 
+    @Override
+    @Transactional
+    public void eliminarCuentaUsuario(String email) {
+        Usuario usuarioBD = usuarioRepository.findByEmail(email)
+                .orElseThrow();
+        usuarioRepository.delete(usuarioBD);
+    }
+
+    @Override
+    @Transactional
+    public Optional<UsuarioDto> modificarDatosPorCorreo(Usuario datosNuevos, String email) {
+        Optional<Usuario> o = usuarioRepository.findByEmail(email);
+
+        if (o.isPresent()) {
+            Usuario usuarioDb = o.get();
+
+            boolean modificado = false;
+
+            if (datosNuevos.getNombre() != null && !datosNuevos.getNombre().isEmpty()
+                    && !datosNuevos.getNombre().equals(usuarioDb.getNombre())) {
+                usuarioDb.setNombre(datosNuevos.getNombre());
+                modificado = true;
+            }
+            if (datosNuevos.getApellidos() != null && !datosNuevos.getApellidos().isEmpty()
+                    && !datosNuevos.getApellidos().equals(usuarioDb.getApellidos())) {
+                usuarioDb.setApellidos(datosNuevos.getApellidos());
+                modificado = true;
+            }
+
+            if (datosNuevos.getDNI() != null && !datosNuevos.getDNI().isEmpty()
+                    && !datosNuevos.getDNI().equals(usuarioDb.getDNI())) {
+                usuarioDb.setDNI(datosNuevos.getDNI());
+                modificado = true;
+            }
+            if (datosNuevos.getTelefono() != null && !datosNuevos.getTelefono().isEmpty()
+                    && !datosNuevos.getTelefono().equals(usuarioDb.getTelefono())) {
+                usuarioDb.setTelefono(datosNuevos.getTelefono());
+                modificado = true;
+            }
+            if (datosNuevos.getContrasenia() != null && !datosNuevos.getContrasenia().isEmpty()) {
+                String nuevaContraseniaCifrada = passwordEncoder.encode(datosNuevos.getContrasenia());
+                if (!nuevaContraseniaCifrada.equals(usuarioDb.getContrasenia())) { // O usa matches
+                    usuarioDb.setContrasenia(nuevaContraseniaCifrada);
+                    modificado = true;
+                }
+            }
+            Usuario usuarioFinal;
+            if (modificado) {
+                usuarioFinal = usuarioRepository.save(usuarioDb);
+            } else {
+                usuarioFinal = usuarioDb; // No hubo cambios
+            }
+            return Optional.of(DtoMapperUsuario.builder().setUsuario(usuarioFinal).build());
+        } else {
+            return Optional.empty(); // Usuario no encontrado
+        }
+    }
 }
