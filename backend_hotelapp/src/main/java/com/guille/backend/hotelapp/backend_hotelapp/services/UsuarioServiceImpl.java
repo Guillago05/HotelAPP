@@ -119,4 +119,18 @@ public class UsuarioServiceImpl implements UsuarioService {
             return Optional.empty(); // Usuario no encontrado
         }
     }
+
+    @Override
+    @Transactional
+    public Optional<UsuarioDto> eliminarPuntos(Long id) {
+        Optional<Usuario> o = usuarioRepository.findById(id);
+        Usuario u = null;
+        if (o.isPresent()) {
+            Usuario usuarioDb = o.orElseThrow();
+            usuarioDb.setPuntos(0);
+            u = usuarioRepository.save(usuarioDb);
+        }
+        return Optional.of(DtoMapperUsuario.builder().setUsuario(u).build());
+    }
+
 }

@@ -35,11 +35,4 @@ public interface UsuarioRepository extends CrudRepository<Usuario, Long> {
                         @Param("nuevoDNI") String nuevoDNI,
                         @Param("nuevaContrasenia") String nuevaContrasenia);
 
-        @Transactional
-        @Modifying
-        @Query("UPDATE Usuario u SET " +
-                        "u.puntos = :nuevosPuntos " +
-                        "WHERE u.id = :id")
-        int modificarPuntosUsuario(@Param("nuevosPuntos") int nuevosPuntos,
-                        @Param("id") Long id);
 }

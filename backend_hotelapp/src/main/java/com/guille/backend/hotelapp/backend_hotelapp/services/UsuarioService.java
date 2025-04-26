@@ -18,4 +18,6 @@ public interface UsuarioService {
     void eliminarCuentaUsuario(String email);
 
     Optional<UsuarioDto> modificarDatosPorCorreo(Usuario usuario, String email);
+
+    Optional<UsuarioDto> eliminarPuntos(Long id);
 }

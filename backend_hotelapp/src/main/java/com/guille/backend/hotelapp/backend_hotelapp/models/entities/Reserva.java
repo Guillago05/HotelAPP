@@ -48,13 +48,14 @@ public class Reserva {
     private String apellidos_no_reg;
     private String dni_no_reg;
     private String telefono_no_reg;
+    private double precioEstancia;
 
     public Reserva() {
     }
 
     public Reserva(Long id, Usuario usuario, String email_no_reg, Hotel hotel, Habitacion habitacion, Date fechaLlegada,
             Date fechaSalida, int personas, String nombre_no_reg, String apellidos_no_reg, String dni_no_reg,
-            String telefono_no_reg) {
+            String telefono_no_reg, int precioEstancia) {
         this.id = id;
         this.usuario = usuario;
         this.email_no_reg = email_no_reg;
@@ -67,6 +68,7 @@ public class Reserva {
         this.apellidos_no_reg = apellidos_no_reg;
         this.dni_no_reg = dni_no_reg;
         this.telefono_no_reg = telefono_no_reg;
+        this.precioEstancia = precioEstancia;
     }
 
     public Long getId() {
@@ -171,6 +173,14 @@ public class Reserva {
                 + ", fechaLlegada=" + fechaLlegada + ", fechaSalida=" + fechaSalida + ", personas=" + personas
                 + ", email_no_reg=" + email_no_reg + ", nombre_no_reg=" + nombre_no_reg + ", apellidos_no_reg="
                 + apellidos_no_reg + ", dni_no_reg=" + dni_no_reg + ", telefono_no_reg=" + telefono_no_reg + "]";
+    }
+
+    public double getPrecioEstancia() {
+        return precioEstancia;
+    }
+
+    public void setPrecioEstancia(double precioEstancia) {
+        this.precioEstancia = precioEstancia;
     }
 
 }

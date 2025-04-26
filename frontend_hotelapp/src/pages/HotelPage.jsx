@@ -1,7 +1,7 @@
 import { useLocation, useNavigate } from "react-router-dom";
 import { NavBar } from "../components/layout/NavBar"
 import { useEffect, useState } from "react";
-import { getHabitaciones } from "../services/HotelService";
+import { getHabitaciones } from "../services/HabitacionService";
 
 
 export const HotelPage = () => {

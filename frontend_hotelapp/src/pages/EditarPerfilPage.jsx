@@ -1,6 +1,6 @@
 import { useState } from "react";
 import { NavBar } from "../components/layout/NavBar"
-import { getUsuarioPorCorreo, modificarDatosUsuario } from "../services/UsuarioService";
+import { modificarDatosUsuario } from "../services/UsuarioService";
 import { useNavigate } from "react-router-dom";
 import Swal from "sweetalert2";
 

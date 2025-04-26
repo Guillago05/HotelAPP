@@ -1,5 +1,5 @@
 import { useNavigate } from "react-router-dom";
-import { getPrecioMasBarato } from "../services/HotelService";
+import { getPrecioMasBarato } from "../services/HabitacionService";
 import { useEffect, useState } from "react";
 import { getImagen } from "../services/ImagenService";
 // import imagenHotel from '../public/images/Hotel Atocha.png';
@@ -33,7 +33,7 @@ export const HotelContainer = ({ hotel, fecha_llegada, fecha_salida, personas })
 
     useEffect(() => {
         imagen();
-    }, []);
+    }, [rutaImagen]);
 
 
     return (

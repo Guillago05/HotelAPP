@@ -52,6 +52,15 @@ public class UsuarioController {
         return ResponseEntity.notFound().build();
     }
 
+    @PutMapping("/puntos/{id}")
+    public ResponseEntity<?> ponerPuntosA0(@PathVariable Long id) {
+        Optional<UsuarioDto> o = service.eliminarPuntos(id);
+        if (o.isPresent()) {
+            return ResponseEntity.status(HttpStatus.CREATED).body(o.orElseThrow());
+        }
+        return ResponseEntity.notFound().build();
+    }
+
     @DeleteMapping("/{email}")
     public ResponseEntity<?> deleteByEmail(@PathVariable String email) {
         Optional<UsuarioDto> o = service.obtenerUsuarioPorCorreo(email);
