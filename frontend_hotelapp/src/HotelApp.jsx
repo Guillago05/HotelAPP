@@ -6,7 +6,13 @@ import { LoginPage } from "./auth/pages/LoginPage";
 import { BookHabitacionPage } from "./pages/BookHabitacionPage";
 import { RegisterPage } from "./auth/pages/RegisterPage";
 import { EditarPerfilPage } from "./pages/EditarPerfilPage";
+import { ReservasPage } from "./pages/ReservasPage";
+import { PrivateRoute } from "./components/PrivateRoute";
 
+const storedLogin = JSON.parse(sessionStorage.getItem("login")) || {
+    isAuth: true,
+    user: null
+}
 export const HotelApp = () => {
     return (
         <Routes>
@@ -17,7 +23,16 @@ export const HotelApp = () => {
             <Route path="/hotel/:nombrehotel" element={<HotelPage />} />
             <Route path="/hotel/:nombrehotel/book" element={<BookHabitacionPage />} />
             <Route path="/register" element={<RegisterPage />} />
-            <Route path="/perfil/edit" element={<EditarPerfilPage />} />
+            <Route path="/perfil/edit" element={
+                <PrivateRoute>
+                    <EditarPerfilPage />
+                </PrivateRoute>
+            } />
+            <Route path="/reservas" element={
+                <PrivateRoute>
+                    <ReservasPage />
+                </PrivateRoute>
+            } />
         </Routes>
     );
 };

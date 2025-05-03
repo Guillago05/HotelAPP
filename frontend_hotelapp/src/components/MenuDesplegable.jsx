@@ -39,6 +39,13 @@ export const MenuDesplegable = ({ handlerLogout, setShowMenu, email }) => {
                 >
                     Modificar datos
                 </NavLink>
+                <NavLink
+                    className="dropdown-item"
+                    to="/reservas"
+                    onClick={() => setShowMenu(false)} // Cierra el menú al hacer clic
+                >
+                    Ver reservas
+                </NavLink>
                 <button
                     className="dropdown-item"
                     onClick={() => handleDelete()} // Cierra el menú al hacer clic

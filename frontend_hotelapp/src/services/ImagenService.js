@@ -8,11 +8,8 @@ export const getImagen = async (id) => {
         if (imagenes.length === 0) return "";
 
         // Extraer ruta relativa a partir de 'public'
-        const pathParts = imagenes[0].ruta.split(/public[\\/]/);
-        const relativePath = pathParts.length > 1 ? pathParts[1].replace(/\\/g, "/") : "";
-        console.log(relativePath);
-        // Retornar ruta accesible desde el navegador
-        return `/${relativePath}`;
+        const imagen = imagenes[0].ruta;
+        return `${imagen}`;
     } catch (error) {
         console.error(error);
     }

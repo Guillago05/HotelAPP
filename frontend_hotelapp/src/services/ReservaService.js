@@ -30,3 +30,22 @@ export const reservarHabitacionNoReg = async ({ hotel, habitacion, fechaLlegada,
         return undefined;
     }
 };
+
+export const obtenerReservasPorUsuarioEmail = async (email) => {
+    try {
+        const response = await axios.get(`http://localhost:8080/reservas?email=${email}`)
+        return response.data;
+    } catch (error) {
+        console.error(error);
+    }
+    return []
+}
+
+
+export const eliminarReserva = async (id) => {
+    try {
+        await axios.delete(`http://localhost:8080/reservas/${id}`)
+    } catch (error) {
+        console.error(error);
+    }
+}

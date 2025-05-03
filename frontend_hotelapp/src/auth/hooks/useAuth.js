@@ -27,7 +27,7 @@ export const useAuth = () => {
             })
             sessionStorage.setItem('login', JSON.stringify({
                 isAuth: true,
-                isUser: claims.isAdmin,
+                isUser: claims.isUser,
                 email: email
             }));
             navigate('/home')
