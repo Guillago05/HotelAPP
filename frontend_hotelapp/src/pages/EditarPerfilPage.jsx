@@ -24,7 +24,6 @@ export const EditarPerfilPage = () => {
 
     const handleSubmit = (event) => {
         event.preventDefault();
-        console.log("modificados")
         const isNombreEmpty = !nombre || !nombre.trim();
         const isApellidosEmpty = !apellidos || !apellidos.trim();
         const isContraseniaEmpty = !contrasenia || !contrasenia.trim();
@@ -40,7 +39,7 @@ export const EditarPerfilPage = () => {
         }
 
         const usuario = {
-            email: storedLogin.email,
+            email: storedLogin?.email,
             nombre: nombre,
             apellidos: apellidos,
             contrasenia: contrasenia,

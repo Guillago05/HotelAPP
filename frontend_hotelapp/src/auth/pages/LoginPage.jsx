@@ -42,7 +42,7 @@ export const LoginPage = () => {
         <>
             <NavBar />
             <div className="container mt-5 d-flex justify-content-center">
-                <div className="card p-5 shadow-lg" style={{ width: "450px" }}>
+                <div className="card shadow-lg bg-dark text-white p-4 rounded-3xl w-100" style={{ maxWidth: '500px' }}>
                     <h2 className="text-center mb-4">Login</h2>
                     <form onSubmit={onSubmit}>
                         <div className="mb-3">

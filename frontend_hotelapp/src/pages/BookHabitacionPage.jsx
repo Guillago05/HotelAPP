@@ -20,7 +20,7 @@ export const BookHabitacionPage = () => {
 
     const [loginData, setLoginData] = useState({
         isAuth: false,
-        user: undefined
+        usuario: undefined
     });
 
     const [puntos, setPuntos] = useState(0);
@@ -30,6 +30,7 @@ export const BookHabitacionPage = () => {
     const findUsuario = async (email) => {
         try {
             const usuario = await getUsuarioPorCorreo(email);
+            console.log(usuario)
             setLoginData({
                 isAuth: true,
                 user: usuario
@@ -86,6 +87,7 @@ export const BookHabitacionPage = () => {
 
         setPuntosAplicados(!puntosAplicados);
     }
+
     const handleSubmit = async (event) => {
         event.preventDefault();//Para que no se actualice la pagina
         if (!nombre || !apellidos || !email || !dni || !telefono) {
@@ -153,6 +155,11 @@ export const BookHabitacionPage = () => {
             [name]: value,
         });
     }
+
+    const isDisabled = (fieldName) => {
+        return loginData.isAuth && formData[fieldName !== ""];
+    }
+
     return (
         <>
             <NavBar />
@@ -194,16 +201,21 @@ export const BookHabitacionPage = () => {
 
                         {/* ====> Bloque de "Has iniciado sesión" MOVIDO AQUÍ <==== */}
                         {loginData.isAuth && loginData.user && (
-                            <div className="card shadow-lg bg-dark text-white p-3 rounded-3xl w-100 mb-4"> {/* Añadido mb-4 para espacio */}
+                            <div className="card shadow-lg bg-dark text-white p-3 rounded-3xl w-100 mb-4">
                                 <div className="d-flex align-items-center gap-3">
-                                    <div className="rounded-circle bg-primary text-white d-flex align-items-center justify-content-center"
-                                        style={{ width: "40px", height: "40px", fontSize: "1.2rem", flexShrink: 0 }}>
-                                        {/* Usar optional chaining por seguridad */}
-                                        {String(loginData.user?.nombre || '?').charAt(0).toUpperCase()}
+                                    <div
+                                        className="rounded-circle bg-primary text-white d-flex align-items-center justify-content-center"
+                                        style={{
+                                            width: "40px",
+                                            height: "40px",
+                                            fontSize: "1.2rem",
+                                            flexShrink: 0
+                                        }}>
+                                        {String(loginData.user.email || "?").charAt(0).toUpperCase()}
                                     </div>
                                     <div>
                                         <p className="text-sm m-0">Has iniciado sesión como:</p>
-                                        <span className="font-weight-bold">{loginData.user?.email}</span> {/* font-weight-bold es clase bootstrap */}
+                                        <span className="font-weight-bold">{loginData.user?.email}</span>
                                     </div>
                                 </div>
                             </div>
@@ -217,23 +229,23 @@ export const BookHabitacionPage = () => {
                             <form onSubmit={handleSubmit}> {/* No necesita mt-4 si h2 tiene mb-4 */}
                                 <div className="mb-3">
                                     <label className="form-label">Nombre</label>
-                                    <input type="text" name="nombre" className="form-control bg-dark text-white border-secondary" value={nombre} onChange={onInputChange} required disabled={loginData.isAuth} /> {/* Cambiado border-light por border-secondary */}
+                                    <input type="text" name="nombre" className="form-control bg-dark text-white border-secondary" value={nombre} onChange={onInputChange} required disabled={isDisabled("nombre")} /> {/* Cambiado border-light por border-secondary */}
                                 </div>
                                 <div className="mb-3">
                                     <label className="form-label">Apellidos</label>
-                                    <input type="text" name="apellidos" className="form-control bg-dark text-white border-secondary" value={apellidos} onChange={onInputChange} required disabled={loginData.isAuth} />
+                                    <input type="text" name="apellidos" className="form-control bg-dark text-white border-secondary" value={apellidos} onChange={onInputChange} required disabled={isDisabled("apellidos")} />
                                 </div>
                                 <div className="mb-3">
                                     <label className="form-label">Email</label>
-                                    <input type="email" name="email" className="form-control bg-dark text-white border-secondary" value={email} onChange={onInputChange} required disabled={loginData.isAuth} />
+                                    <input type="email" name="email" className="form-control bg-dark text-white border-secondary" value={email} onChange={onInputChange} required disabled={isDisabled("email")} />
                                 </div>
                                 <div className="mb-3">
                                     <label className="form-label">DNI</label>
-                                    <input type="text" name="dni" className="form-control bg-dark text-white border-secondary" value={dni} onChange={onInputChange} required disabled={loginData.isAuth} />
+                                    <input type="text" name="dni" className="form-control bg-dark text-white border-secondary" value={dni} onChange={onInputChange} required disabled={isDisabled("dni")} />
                                 </div>
                                 <div className="mb-3">
                                     <label className="form-label">Teléfono</label>
-                                    <input type="tel" name="telefono" className="form-control bg-dark text-white border-secondary" value={telefono} onChange={onInputChange} required disabled={loginData.isAuth} />
+                                    <input type="tel" name="telefono" className="form-control bg-dark text-white border-secondary" value={telefono} onChange={onInputChange} required disabled={isDisabled("telefono")} />
                                 </div>
                                 <button type="submit" className="btn btn-primary w-100 mt-3"> {/* Añadido mt-3 */}
                                     Confirmar Reserva

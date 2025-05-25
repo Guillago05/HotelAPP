@@ -2,7 +2,7 @@ import { useLocation, useNavigate } from "react-router-dom";
 import { NavBar } from "../components/layout/NavBar"
 import { useEffect, useState } from "react";
 import { getHabitaciones } from "../services/HabitacionService";
-
+import { getImagen } from "../services/ImagenService";
 
 export const HotelPage = () => {
     const navigate = useNavigate();
@@ -15,7 +15,7 @@ export const HotelPage = () => {
     const duracionEstancia = Math.ceil((new Date(fecha_salida) - new Date(fecha_llegada)) / (1000 * 3600 * 24));
 
     const [habitaciones, setHabitaciones] = useState([]);
-
+    const [imagenes, setImagenes] = useState([]);
     const reservarHabitacion = (habitacion) => {
         navigate(`/hotel/${hotel.nombre}/book`, { state: { hotel, fecha_llegada, fecha_salida, personas, habitacion } });
     }
@@ -24,9 +24,13 @@ export const HotelPage = () => {
         const habitacionesDisp = await getHabitaciones(hotel.nombre, fecha_llegada, fecha_salida, personas);
         setHabitaciones(habitacionesDisp);
     }
-
+    const fetchImagenes = async () => {
+        const imagenesData = await getImagen(hotel.id);
+        setImagenes(imagenesData);
+    };
     useEffect(() => {
         findHabitaciones();
+        fetchImagenes();
     }, []);
 
     return (
@@ -39,7 +43,15 @@ export const HotelPage = () => {
                     <div className="col">
                         <h5>Imágenes del Hotel</h5>
                         <div className="d-flex gap-3">
-                            <div className="img-thumbnail" style={{ width: "200px", height: "150px", backgroundColor: "#ccc" }}></div>
+                            {imagenes.map((imagen, index) => (
+                                <img
+                                    key={index}
+                                    src={imagen.ruta}
+                                    alt={`Imagen ${index + 1}`}
+                                    className="img-thumbnail"
+                                    style={{ width: "200px", height: "150px", objectFit: "cover" }}
+                                />
+                            ))}
                         </div>
                     </div>
                 </div>
@@ -58,9 +70,7 @@ export const HotelPage = () => {
                         </tr>
                     </thead>
                     <tbody>
-                        {/* Aquí se generan las filas dinámicamente */}
-                        {/* Ejemplo de fila: */}
-                        {/* habitaciones?.map((habitacion) => ( */}
+
                         {habitaciones.map((habitacion) => (
                             <tr key={habitacion.id}>
                                 <td className="text-center">{habitacion.numero}</td>

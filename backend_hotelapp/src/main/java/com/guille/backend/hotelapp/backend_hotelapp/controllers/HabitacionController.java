@@ -22,7 +22,7 @@ public class HabitacionController {
     private HabitacionService service;
 
     @GetMapping("/disponibles")
-    public List<Habitacion> habitacionesDisponiblesPrecio(@RequestParam String nombreHotel,
+    public List<Habitacion> habitacionesDisponibles(@RequestParam String nombreHotel,
             @RequestParam String fecha_llegada,
             @RequestParam String fecha_salida, @RequestParam int personas) {
 

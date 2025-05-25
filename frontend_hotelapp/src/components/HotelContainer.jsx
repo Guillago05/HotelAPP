@@ -27,8 +27,12 @@ export const HotelContainer = ({ hotel, fecha_llegada, fecha_salida, personas })
     );
 
     const imagen = async () => {
-        const imagen = await getImagen(hotel.id);
-        setRutaImagen(imagen);
+        const imagenes = await getImagen(hotel.id);
+        if (imagenes && imagenes.length > 0) {
+            setRutaImagen(imagenes[0].ruta);
+        } else {
+            setRutaImagen(""); // O una imagen por defecto
+        }
     };
 
     useEffect(() => {

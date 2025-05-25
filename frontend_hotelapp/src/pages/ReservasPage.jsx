@@ -1,9 +1,9 @@
 import { useEffect, useState } from "react";
 import { NavBar } from "../components/layout/NavBar"
 import { ReservaContainer } from "../components/ReservaContainer";
-import { obtenerReservasPorUsuarioEmail } from "../services/ReservaService";
+import { obtenerReservas } from "../services/ReservaService";
 
-const storedLogin = JSON.parse(sessionStorage.getItem("login"));
+const storedLogin = JSON.parse(sessionStorage.getItem('login'));
 
 export const ReservasPage = () => {
 
@@ -11,7 +11,8 @@ export const ReservasPage = () => {
     const [isLoading, setIsLoading] = useState(true);
 
     const findReservas = async () => {
-        const reservasUsuario = await obtenerReservasPorUsuarioEmail(storedLogin.email);
+        const reservasUsuario = await obtenerReservas(storedLogin.email);
+
         setReservas(reservasUsuario);
         setIsLoading(false);
     }
@@ -27,12 +28,15 @@ export const ReservasPage = () => {
             {isLoading ? (
                 <p className="text-center">Cargando...</p>
             ) : (
-                <div className="row">
+                reservas.length === 0 ? (
+                    <p className="text-center">No tienes reservas pendientes</p>
+                ) : (<div className="row">
                     {reservas.map((reserva) => (
                         <ReservaContainer key={reserva.id} id={reserva.id} hotel={reserva.hotel} habitacion={reserva.habitacion}
                             fechaLlegada={reserva.fechaLlegada} fechaSalida={reserva.fechaSalida} personas={reserva.personas} precioEstancia={reserva.precioEstancia} />
                     ))}
-                </div>
+                </div>)
+
             )}
         </div>
     </>)

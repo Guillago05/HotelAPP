@@ -65,9 +65,12 @@ public class UsuarioServiceImpl implements UsuarioService {
     @Override
     @Transactional
     public void eliminarCuentaUsuario(String email) {
-        Usuario usuarioBD = usuarioRepository.findByEmail(email)
-                .orElseThrow();
-        usuarioRepository.delete(usuarioBD);
+        Optional<Usuario> o = usuarioRepository.findByEmail(email);
+        if (o.isPresent()) {
+            Usuario usuarioBD = o.orElseThrow();
+            usuarioRepository.delete(usuarioBD);
+
+        }
     }
 
     @Override
@@ -79,7 +82,13 @@ public class UsuarioServiceImpl implements UsuarioService {
             Usuario usuarioDb = o.get();
 
             boolean modificado = false;
-
+            System.out.println("\n");
+            System.out.println("\n");
+            System.out.println("\n");
+            System.out.println("\n");
+            System.out.println("\n");
+            System.out.println(datosNuevos.getDNI());
+            System.out.println(datosNuevos.getNombre());
             if (datosNuevos.getNombre() != null && !datosNuevos.getNombre().isEmpty()
                     && !datosNuevos.getNombre().equals(usuarioDb.getNombre())) {
                 usuarioDb.setNombre(datosNuevos.getNombre());

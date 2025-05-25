@@ -1,4 +1,4 @@
-import { NavLink, useNavigate } from "react-router-dom";
+import { NavLink } from "react-router-dom";
 import { useAuth } from "../../auth/hooks/useAuth";
 import { useEffect, useState } from "react";
 import { MenuDesplegable } from "../MenuDesplegable";
@@ -13,8 +13,10 @@ export const NavBar = () => {
     const toggleMenu = () => setShowMenu(!showMenu);
 
     const obtener_puntos = async () => {
-        const usuario = await getUsuarioPorCorreo(loginData.email);
-        setPuntos(usuario.puntos);
+        if (loginData.isAuth) {
+            const usuario = await getUsuarioPorCorreo(loginData.email);
+            setPuntos(usuario.puntos);
+        }
     }
 
     useEffect(() => {

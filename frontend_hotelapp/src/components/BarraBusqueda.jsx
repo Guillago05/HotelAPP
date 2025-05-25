@@ -1,11 +1,15 @@
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import { useNavigate } from "react-router-dom";
 
 export const BarraBusqueda = ({ home }) => {
     const [ciudad, setCiudad] = useState('');
     const [personas, setPersonas] = useState(1);
     const [fechaLlegada, setFechaLlegada] = useState(new Date().toISOString().split('T')[0]);
-    const [fechaSalida, setFechaSalida] = useState(new Date().toISOString().split('T')[0]);
+    const [fechaSalida, setFechaSalida] = useState(() => {
+        const tomorrow = new Date();
+        tomorrow.setDate(tomorrow.getDate() + 1);
+        return tomorrow.toISOString().split('T')[0];
+    });
 
     const navigate = useNavigate();
 
@@ -15,7 +19,12 @@ export const BarraBusqueda = ({ home }) => {
     }
 
     const onFechaLlegadaChange = ({ target }) => {
+        const llegada = new Date(target.value);
+        const salida = new Date(llegada);
+        salida.setDate(llegada.getDate() + 1);
+
         setFechaLlegada(target.value);
+        setFechaSalida(salida.toISOString().split('T')[0]);
     };
 
     const onFechaSalidaChange = ({ target }) => {
@@ -40,6 +49,11 @@ export const BarraBusqueda = ({ home }) => {
         event.preventDefault();
         setPersonas(personas > 1 ? personas - 1 : 1);
     };
+
+    const getMinDate = () => {
+        return new Date().toISOString().split('T')[0];
+    }
+
     return (
         <>
             <div className="container mt-5">
@@ -69,6 +83,7 @@ export const BarraBusqueda = ({ home }) => {
                                     type="date"
                                     className="form-control"
                                     value={fechaLlegada}
+                                    min={getMinDate()}
                                     onChange={onFechaLlegadaChange}
                                 />
                             </div>
@@ -80,6 +95,7 @@ export const BarraBusqueda = ({ home }) => {
                                     type="date"
                                     className="form-control"
                                     value={fechaSalida}
+                                    min={fechaLlegada}
                                     onChange={onFechaSalidaChange}
                                 />
                             </div>

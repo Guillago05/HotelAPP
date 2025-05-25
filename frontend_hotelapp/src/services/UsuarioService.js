@@ -18,10 +18,10 @@ export const eliminarCuentaUsuario = async (correo) => {
     }
 }
 
-export const modificarDatosUsuario = async ({ email, nombre, apellidos, contrasenia, telefono, DNI }) => {
+export const modificarDatosUsuario = async ({ email, nombre, apellidos, contrasenia, telefono, dni }) => {
     try {
         return await axios.put(`http://localhost:8080/usuarios/${email}`,
-            { nombre, apellidos, contrasenia, telefono, DNI }
+            { nombre, apellidos, contrasenia, telefono, dni }
         );
     } catch (error) {
         console.error(error);

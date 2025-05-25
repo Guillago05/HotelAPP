@@ -1,6 +1,7 @@
 import { useState } from "react";
 import { NavBar } from "../../components/layout/NavBar"
 import { useAuth } from "../hooks/useAuth";
+import Swal from "sweetalert2";
 
 const initialLoginForm = {
     email: '',
@@ -27,10 +28,31 @@ export const RegisterPage = () => {
         if (!email || !contrasenia) {
             Swal.fire(
                 'Error de validacion',
-                'Username y password requeridos',
+                'Email y contraseña requeridos',
                 'error'
             );
+            return;
         }
+
+        if (contrasenia.length < 5) {
+            Swal.fire(
+                'Error de validación',
+                'La contraseña debe tener al menos 5 caracteres.',
+                'error'
+            );
+            return;
+        }
+
+        const passwordRegex = /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d).+$/;
+        if (!passwordRegex.test(contrasenia)) {
+            Swal.fire(
+                'Error de validación',
+                'La contraseña debe contener al menos una letra minúscula, una mayúscula y un número.',
+                'error'
+            );
+            return;
+        }
+
 
         handlerRegister({ email, contrasenia });
         setLoginForm(initialLoginForm);
@@ -40,7 +62,7 @@ export const RegisterPage = () => {
         <>
             <NavBar />
             <div className="container mt-5 d-flex justify-content-center">
-                <div className="card p-5 shadow-lg" style={{ width: "450px" }}>
+                <div className="card shadow-lg bg-dark text-white p-4 rounded-3xl w-100" style={{ maxWidth: '500px' }}>
                     <h2 className="text-center mb-4">Registrate</h2>
                     <form onSubmit={onSubmit}>
                         <div className="mb-3">
@@ -52,7 +74,7 @@ export const RegisterPage = () => {
                                 type="password" value={contrasenia} onChange={onInputChange} />
                         </div>
                         <div className="text-center">
-                            <button className="btn btn-primary w-100" type="submit">Login</button>
+                            <button className="btn btn-primary w-100" type="submit">Registrar</button>
                         </div>
                     </form>
                 </div>

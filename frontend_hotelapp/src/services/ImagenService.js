@@ -8,8 +8,8 @@ export const getImagen = async (id) => {
         if (imagenes.length === 0) return "";
 
         // Extraer ruta relativa a partir de 'public'
-        const imagen = imagenes[0].ruta;
-        return `${imagen}`;
+        // const imagen = imagenes[0].ruta;
+        return imagenes;
     } catch (error) {
         console.error(error);
     }

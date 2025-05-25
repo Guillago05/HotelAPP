@@ -9,8 +9,8 @@ export const ReservaContainer = ({ id, hotel, habitacion, fechaLlegada, fechaSal
 
     useEffect(() => {
         const fetchImagen = async () => {
-            const imagen = await getImagen(hotel.id);
-            setRutaImagen(imagen);
+            const imagenes = await getImagen(hotel.id);
+            setRutaImagen(imagenes[0].ruta);
         };
         fetchImagen();
     }, [hotel.id]);
