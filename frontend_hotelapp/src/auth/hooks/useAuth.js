@@ -34,13 +34,13 @@ export const useAuth = () => {
         } catch (error) {
             if (error.response?.status == 401) {
                 Swal.fire(
-                    'Error de validacion',
-                    'Correo o contrasenia invalidos',
+                    'Error de validación',
+                    'Correo o contraseña inválidos',
                     'error'
                 );
             } else if (error.response?.status == 403) {
                 Swal.fire(
-                    'Error de validacion',
+                    'Error de validación',
                     'No tiene acceso al recurso',
                     'error'
                 );
@@ -60,7 +60,7 @@ export const useAuth = () => {
             if (error.response?.status == 500) {
                 Swal.fire(
                     'Error',
-                    'El correo ya esta registrado en el sistema',
+                    'El email ya está registrado en el sistema',
                     'error'
                 );
             }

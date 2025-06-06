@@ -6,7 +6,7 @@ insert into roles(id, name) values (2, 'ROLE_HOTEL');
 
 -- Hotel 1 (ID: 3)
 INSERT INTO login (id, rol_id, email, contrasenia) VALUES (3, 2, 'hotel_plaza_mayor_madrid@example.com', 'password123');
-INSERT INTO hoteles (id, total_habitaciones, ciudad, direccion, nombre, descripcion) VALUES (3, 8, 'Madrid', 'Calle Mayor 10, 28013', 'Hotel Plaza Mayor Madrid', 'Encantador hotel boutique situado a pocos pasos de la historica Plaza Mayor de Madrid. Ofrece habitaciones comodas y un ambiente acogedor.');
+INSERT INTO hoteles (id, total_habitaciones, ciudad, direccion, nombre, descripcion) VALUES (3, 8, 'Madrid', 'Calle Mayor 10, 28013', 'Hotel Plaza Mayor Madrid', 'Encantador hotel boutique situado a pocos pasos de la histórica Plaza Mayor de Madrid. Ofrece habitaciones cómodas y un ambiente acogedor.');
 INSERT INTO habitaciones (numero, personas, precio_noche, hotel_id) VALUES (101, 2, 120, 3);
 INSERT INTO habitaciones (numero, personas, precio_noche, hotel_id) VALUES (102, 1, 95, 3);
 INSERT INTO habitaciones (numero, personas, precio_noche, hotel_id) VALUES (201, 3, 150, 3);

@@ -27,7 +27,7 @@ export const RegisterPage = () => {
         event.preventDefault();//Para que no se actualice la pagina
         if (!email || !contrasenia) {
             Swal.fire(
-                'Error de validacion',
+                'Error de validación',
                 'Email y contraseña requeridos',
                 'error'
             );
@@ -63,7 +63,7 @@ export const RegisterPage = () => {
             <NavBar />
             <div className="container mt-5 d-flex justify-content-center">
                 <div className="card shadow-lg bg-dark text-white p-4 rounded-3xl w-100" style={{ maxWidth: '500px' }}>
-                    <h2 className="text-center mb-4">Registrate</h2>
+                    <h2 className="text-center mb-4">Regístrate</h2>
                     <form onSubmit={onSubmit}>
                         <div className="mb-3">
                             <input className="form-control" placeholder="Email"
