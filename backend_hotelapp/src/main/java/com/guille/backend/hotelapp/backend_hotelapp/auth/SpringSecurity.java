@@ -2,7 +2,6 @@ package com.guille.backend.hotelapp.backend_hotelapp.auth;
 
 import java.util.Arrays;
 
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.web.servlet.FilterRegistrationBean;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
@@ -26,11 +25,8 @@ import com.guille.backend.hotelapp.backend_hotelapp.auth.filters.JwtValidationFi
 @Configuration
 public class SpringSecurity {
 
-    @Autowired
-    private AuthenticationConfiguration authenticationConfiguration;
-
     @Bean
-    AuthenticationManager authenticationManager() throws Exception {
+    AuthenticationManager authenticationManager(AuthenticationConfiguration authenticationConfiguration) throws Exception {
         return authenticationConfiguration.getAuthenticationManager();
     }
 
@@ -40,12 +36,15 @@ public class SpringSecurity {
     }
 
     @Bean
-    SecurityFilterChain filterChain(HttpSecurity http) throws Exception {
-        return http.authorizeHttpRequests()
-                .anyRequest().permitAll()
-                .and()
-                .addFilter(new JwtAuthenticationFilter(authenticationConfiguration.getAuthenticationManager()))
-                .addFilter(new JwtValidationFilter(authenticationConfiguration.getAuthenticationManager()))
+    SecurityFilterChain filterChain(HttpSecurity http, AuthenticationManager authenticationManager) throws Exception {
+        return http.authorizeHttpRequests(auth -> auth
+                .requestMatchers(HttpMethod.OPTIONS, "/**").permitAll()
+                .requestMatchers(HttpMethod.POST, "/usuarios").permitAll()
+                .requestMatchers(HttpMethod.GET, "/hoteles/**", "/habitaciones/**", "/imagenes/**").permitAll()
+                .requestMatchers("/login").permitAll()
+                .anyRequest().authenticated())
+                .addFilter(new JwtAuthenticationFilter(authenticationManager))
+                .addFilter(new JwtValidationFilter(authenticationManager))
                 .csrf(config -> config.disable())
                 .sessionManagement(managment -> managment.sessionCreationPolicy(SessionCreationPolicy.STATELESS))
                 .cors(cors -> cors.configurationSource(corsConfigurationSource()))
